@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+:root {
+  /* Design Colors */
+  --beatriz-blue: #0000aa;
+  --beatriz-green: #00ff2a;
+  --beatriz-gray: #cdc9c3;
+  --background: var(--beatriz-gray);
+  --foreground: #000000;
+}
+
+@theme inline {
+  --color-beatriz-blue: var(--beatriz-blue);
+  --color-beatriz-green: var(--beatriz-green);
+  --color-beatriz-gray: var(--beatriz-gray);
+  
+  --font-mono: var(--font-roboto-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-mono);
+}

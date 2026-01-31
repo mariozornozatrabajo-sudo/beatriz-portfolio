@@ -13,8 +13,8 @@
   --color-beatriz-blue: var(--beatriz-blue);
   --color-beatriz-green: var(--beatriz-green);
   --color-beatriz-gray: var(--beatriz-gray);
-  
-  --font-mono: var(--font-roboto-mono);
+
+  --font-mono: var(--font-cascadia-code);
 }
 
 body {

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Roboto_Mono } from "next/font/google";
+import { Cascadia_Code } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
 
-const robotoMono = Roboto_Mono({
-  variable: "--font-roboto-mono",
+const cascadiaCode = Cascadia_Code({
+  variable: "--font-cascadia-code",
   subsets: ["latin"],
 });
 
@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${robotoMono.variable} antialiased`}
+        className={`${cascadiaCode.variable} antialiased`}
       >
         <SmoothScroll>
           {children}

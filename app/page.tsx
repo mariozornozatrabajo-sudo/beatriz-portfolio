@@ -3,14 +3,27 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { Works } from "@/components/Works";
-import { ArrowDown } from "lucide-react";
+import { GlitchButton } from "@/components/GlitchButton";
+import { Footer } from "@/components/Footer";
+import { ArrowDown, Menu, X } from "lucide-react";
 import Link from "next/link";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { useLenis } from "lenis/react";
 
 export default function Home() {
   const container = useRef<HTMLElement>(null);
-
   const videoRef = useRef<HTMLVideoElement>(null);
+  const lenis = useLenis();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleScrollToWorks = () => {
+    lenis?.scrollTo("#works", {
+      duration: 1.5,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+    });
+  };
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   useGSAP(
     () => {
@@ -50,7 +63,6 @@ export default function Home() {
         className="relative min-h-screen w-full bg-[var(--beatriz-gray)] text-[var(--beatriz-blue)] overflow-hidden font-mono"
       >
         {/* Background Video */}
-        {/* Background Video */}
         <div className="absolute inset-0 z-0">
           <video
             ref={videoRef}
@@ -65,21 +77,47 @@ export default function Home() {
         </div>
 
         {/* Header / Top Bar */}
-        <header className="fixed top-0 left-0 w-full p-6 md:p-10 flex justify-between items-center z-50 text-sm md:text-base font-normal text-[var(--beatriz-blue)] mix-blend-difference md:mix-blend-normal">
-          <div className="nav-anim tracking-tight font-mono text-[20px] leading-none">
+        <header className="fixed top-0 left-0 w-full p-6 md:p-10 flex justify-between items-center z-50 text-sm md:text-base font-normal text-[var(--beatriz-blue)]">
+          <div className="nav-anim tracking-tight font-mono text-[20px] leading-none z-50 relative mix-blend-difference text-[var(--beatriz-blue)]">
             <Link href="/">Beatriz Montes Gijón</Link>
           </div>
-          <nav className="nav-anim flex gap-12 bg-[var(--beatriz-blue)] text-white">
+
+          {/* Desktop Nav */}
+          <nav className="nav-anim hidden md:flex gap-12 bg-[var(--beatriz-blue)] text-white mix-blend-difference">
             {["About", "Works", "Contact"].map((item) => (
               <Link
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className="hover:text-gray-300 transition-colors duration-200 block"
+                className="hover:text-[var(--beatriz-green)] block"
               >
                 {item}
               </Link>
             ))}
           </nav>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={toggleMenu}
+            className="md:hidden z-50 relative text-[var(--beatriz-blue)] hover:text-[var(--beatriz-green)] transition-colors"
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+
+          {/* Mobile Menu Overlay */}
+          {isMenuOpen && (
+            <div className="fixed inset-0 bg-[var(--beatriz-gray)] z-40 flex flex-col items-center justify-center gap-8 text-3xl">
+              {["About", "Works", "Contact"].map((item) => (
+                <Link
+                  key={item}
+                  href={`#${item.toLowerCase()}`}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="hover:text-[var(--beatriz-green)] block text-[var(--beatriz-blue)] font-bold"
+                >
+                  {item}
+                </Link>
+              ))}
+            </div>
+          )}
         </header>
 
         {/* Central Content */}
@@ -93,27 +131,21 @@ export default function Home() {
 
           {/* CTA Button */}
           <div className="hero-anim mt-6 ml-2 md:ml-4">
-            <button className="bg-[var(--beatriz-green)] text-black px-8 py-4 md:px-12 md:py-5 text-sm md:text-base cursor-pointer hover:bg-[#00e626] transition-colors font-bold uppercase tracking-wide">
-              Hablemos!
-            </button>
+            <GlitchButton />
           </div>
         </div>
 
         {/* Bottom Bar / Footer */}
-        <footer className="absolute bottom-0 left-0 w-full bg-[var(--beatriz-gray)] py-4 px-6 md:px-10 grid grid-cols-2 md:flex md:justify-between gap-4 text-xs md:text-sm z-20 border-t border-black/5 text-[var(--beatriz-blue)]">
-          <span className="footer-anim text-center md:text-left">Editorial</span>
-          <span className="footer-anim text-center">Motion graphics</span>
-          <span className="footer-anim text-center">Ilustrations</span>
-          <span className="footer-anim text-center md:text-right">Visual identity</span>
-        </footer>
+        <Footer />
 
         {/* Floating Action Button */}
         <div className="footer-anim absolute bottom-16 right-6 md:bottom-20 md:right-10 z-30">
-          <Link href="#works">
-            <button className="bg-[var(--beatriz-blue)] text-white w-12 h-12 md:w-16 md:h-16 flex items-center justify-center hover:bg-[#000088] transition-colors">
-              <ArrowDown className="w-5 h-5 md:w-6 md:h-6" />
-            </button>
-          </Link>
+          <button
+            onClick={handleScrollToWorks}
+            className="bg-[var(--beatriz-blue)] text-white w-12 h-12 md:w-16 md:h-16 flex items-center justify-center hover:bg-[#000088] transition-colors cursor-pointer"
+          >
+            <ArrowDown className="w-5 h-5 md:w-6 md:h-6" />
+          </button>
         </div>
       </main>
       <Works />

@@ -65,10 +65,10 @@ export default function Home() {
         </div>
 
         {/* Header / Top Bar */}
-        <header className="absolute top-0 left-0 w-full p-6 md:p-10 flex justify-between items-start z-20 text-sm md:text-base font-bold text-[var(--beatriz-blue)]">
-          <h1 className="nav-anim tracking-tight">
+        <header className="fixed top-0 left-0 w-full p-6 md:p-10 flex justify-between items-center z-50 text-sm md:text-base font-normal text-[var(--beatriz-blue)] mix-blend-difference md:mix-blend-normal">
+          <div className="nav-anim tracking-tight font-mono text-[20px] leading-none">
             <Link href="/">Beatriz Montes Gijón</Link>
-          </h1>
+          </div>
           <nav className="nav-anim flex gap-12 bg-[var(--beatriz-blue)] text-white">
             {["About", "Works", "Contact"].map((item) => (
               <Link
@@ -83,18 +83,16 @@ export default function Home() {
         </header>
 
         {/* Central Content */}
-        <div className="flex flex-col justify-center min-h-screen px-6 md:px-10 py-20 z-10 relative">
+        <div className="flex flex-col justify-center min-h-screen px-6 md:px-10 py-20 relative">
           <div className="space-y-2 md:space-y-4 max-w-[90vw]">
-            <h2 className="hero-anim text-6xl md:text-8xl lg:text-9xl font-normal leading-[0.9] text-white mix-blend-difference tracking-tighter">
-              Soy Beatriz
-            </h2>
-            <h2 className="hero-anim text-6xl md:text-8xl lg:text-9xl font-normal leading-[0.9] text-white mix-blend-difference tracking-tighter ml-10 md:ml-32">
-              Graphic Designer
-            </h2>
+            <h1 className="flex flex-col font-normal leading-[0.9] text-white mix-blend-difference tracking-tighter">
+              <span className="hero-anim text-5xl md:text-7xl lg:text-8xl">Soy Beatriz</span>
+              <span className="hero-anim text-5xl md:text-7xl lg:text-8xl">Graphic Designer</span>
+            </h1>
           </div>
 
           {/* CTA Button */}
-          <div className="hero-anim mt-12 md:mt-16 ml-2 md:ml-4">
+          <div className="hero-anim mt-6 ml-2 md:ml-4">
             <button className="bg-[var(--beatriz-green)] text-black px-8 py-4 md:px-12 md:py-5 text-sm md:text-base cursor-pointer hover:bg-[#00e626] transition-colors font-bold uppercase tracking-wide">
               Hablemos!
             </button>
@@ -102,18 +100,20 @@ export default function Home() {
         </div>
 
         {/* Bottom Bar / Footer */}
-        <footer className="absolute bottom-0 left-0 w-full bg-[#bfbbb5] py-4 px-6 md:px-10 grid grid-cols-2 md:grid-cols-4 gap-4 text-xs md:text-sm z-20 border-t border-black/5">
-          <span className="footer-anim text-center">Editorial</span>
+        <footer className="absolute bottom-0 left-0 w-full bg-[var(--beatriz-gray)] py-4 px-6 md:px-10 grid grid-cols-2 md:flex md:justify-between gap-4 text-xs md:text-sm z-20 border-t border-black/5 text-[var(--beatriz-blue)]">
+          <span className="footer-anim text-center md:text-left">Editorial</span>
           <span className="footer-anim text-center">Motion graphics</span>
           <span className="footer-anim text-center">Ilustrations</span>
-          <span className="footer-anim text-center">Visual identity</span>
+          <span className="footer-anim text-center md:text-right">Visual identity</span>
         </footer>
 
         {/* Floating Action Button */}
         <div className="footer-anim absolute bottom-16 right-6 md:bottom-20 md:right-10 z-30">
-          <button className="bg-[var(--beatriz-blue)] text-white w-12 h-12 md:w-16 md:h-16 flex items-center justify-center hover:bg-[#000088] transition-colors">
-            <ArrowDown className="w-5 h-5 md:w-6 md:h-6" />
-          </button>
+          <Link href="#works">
+            <button className="bg-[var(--beatriz-blue)] text-white w-12 h-12 md:w-16 md:h-16 flex items-center justify-center hover:bg-[#000088] transition-colors">
+              <ArrowDown className="w-5 h-5 md:w-6 md:h-6" />
+            </button>
+          </Link>
         </div>
       </main>
       <Works />

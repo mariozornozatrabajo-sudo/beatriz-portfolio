@@ -4,7 +4,7 @@
   /* Design Colors */
   --beatriz-blue: #0000aa;
   --beatriz-green: #00ff2a;
-  --beatriz-gray: #cdc9c3;
+  --beatriz-gray: #D4D4D4;
   --background: var(--beatriz-gray);
   --foreground: #000000;
 }
@@ -15,10 +15,30 @@
   --color-beatriz-gray: var(--beatriz-gray);
 
   --font-mono: var(--font-cascadia-code);
+  --font-heading: "fractul-variable", sans-serif;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-mono);
+  font-size: 16px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+}
+
+h1 {
+  font-size: 96px;
+  line-height: 1;
+}
+
+a {
+  font-size: 20px;
 }

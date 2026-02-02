@@ -4,31 +4,103 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
-import { useRef, useMemo, useState } from "react";
-import { projects, Category } from "@/data/projects";
+import { useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Dummy Data
+const projects = [
+    {
+        id: 1,
+        title: "Eclipse Sensory",
+        category: "Immersive Experience",
+        image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop",
+        aspect: "aspect-[3/4]",
+    },
+    {
+        id: 2,
+        title: "Nebula Branding",
+        category: "Visual Identity",
+        image: "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2400&auto=format&fit=crop",
+        aspect: "aspect-square",
+    },
+    {
+        id: 3,
+        title: "Vortex Spatial",
+        category: "Architecture",
+        image: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2670&auto=format&fit=crop",
+        aspect: "aspect-[4/3]",
+    },
+    {
+        id: 4,
+        title: "Quantum Leap",
+        category: "Editorial",
+        image: "https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=2400&auto=format&fit=crop",
+        aspect: "aspect-[3/5]",
+    },
+];
+
 export function Works() {
     const container = useRef<HTMLElement>(null);
-    const [hoveredId, setHoveredId] = useState<number | null>(null);
-
-    const featuredProjects = useMemo(() => {
-        const categories: Category[] = ['editorial', 'motion graphics', 'illustrations', 'visual identity'];
-        return categories.map(cat => projects.find(p => p.category === cat && p.featured)).filter(Boolean) as typeof projects;
-    }, []);
+    const rightColTrigger = useRef<HTMLDivElement>(null);
 
     useGSAP(
         () => {
-            gsap.from(".work-card", {
-                scrollTrigger: {
-                    trigger: container.current,
-                    start: "top 80%",
-                },
-                y: 50,
-                duration: 0.8,
-                stagger: 0.2,
+            // Entry Animation
+            const cards = gsap.utils.toArray<HTMLElement>(".project-card");
+
+            cards.forEach((card) => {
+                gsap.fromTo(
+                    card,
+                    { opacity: 0, y: 100 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 1,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: card,
+                            start: "top 85%",
+                        },
+                    }
+                );
             });
+
+            // Parallax Effect for Right Column
+            // We'll target the right column items specifically for a faster scroll speed
+            const rightCards = cards.filter((_, i) => i % 2 !== 0);
+
+            if (window.innerWidth >= 768) { // Only do parallax on desktop
+                rightCards.forEach((card) => {
+                    gsap.to(card, {
+                        y: -50, // Move up slightly faster than scroll
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: container.current,
+                            start: "top bottom",
+                            end: "bottom top",
+                            scrub: true,
+                        }
+                    });
+                });
+            }
+
+            // Background Entry Animation
+            gsap.fromTo(".works-bg",
+                { opacity: 0, filter: "blur(10px)", scale: 1.1 },
+                {
+                    opacity: 1,
+                    filter: "blur(0px)",
+                    scale: 1,
+                    duration: 1.5,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: container.current,
+                        start: "top 60%",
+                        toggleActions: "play none none reverse"
+                    }
+                }
+            );
         },
         { scope: container }
     );
@@ -37,49 +109,56 @@ export function Works() {
         <section
             id="works"
             ref={container}
-            className="relative w-full min-h-screen py-20 px-6 md:px-10 font-mono text-[var(--beatriz-blue)] overflow-hidden"
+            className="relative w-full min-h-screen bg-[var(--background)] text-[var(--beatriz-blue)]"
         >
-            {/* Background Image */}
-            <div className="absolute inset-0 z-0">
+            {/* Sticky Background */}
+            <div className="works-bg sticky top-0 left-0 w-full h-screen -z-0 overflow-hidden">
                 <Image
                     src="/works-bg.png"
                     alt="Works Background"
                     fill
-                    className="object-cover"
+                    className="object-cover opacity-100" // Adjust opacity if needed, user didn't specify
                     quality={100}
                 />
             </div>
 
-            <div className="relative z-10 max-w-7xl mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-x-20 md:gap-y-24">
-                    {featuredProjects.map((project, index) => (
-                        <div
-                            key={project.id}
-                            onMouseEnter={() => setHoveredId(project.id)}
-                            onMouseLeave={() => setHoveredId(null)}
-                            className={`work-card flex flex-col gap-4 transition-all duration-500 ease-in-out ${index % 2 === 1 ? "md:translate-y-20" : "" // Stagger effect for items
-                                } ${hoveredId !== null && hoveredId !== project.id
-                                    ? "blur-[3px] grayscale"
-                                    : ""
-                                }`}
-                        >
-                            <div className="relative w-full aspect-[4/3] bg-gray-200 overflow-hidden shadow-lg group cursor-pointer">
-                                <Image
-                                    src={project.image}
-                                    alt={project.title}
-                                    fill
-                                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                                />
-                                {/* Category Label Overlay */}
-                                <div className="absolute top-4 left-4 bg-white/90 px-2 py-1 text-xs font-bold uppercase tracking-wider text-[var(--beatriz-blue)]">
-                                    {project.category}
+            <div ref={rightColTrigger} className="relative z-10 max-w-[1400px] mx-auto py-32 md:py-48 px-6 md:px-10 -mt-[100vh]">
+                {/* Grid Layout */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 md:gap-x-24 gap-y-24 md:gap-y-0">
+                    {projects.map((project, index) => {
+                        const isRightColumn = index % 2 !== 0;
+
+                        return (
+                            <div
+                                key={project.id}
+                                className={`project-card flex flex-col group ${isRightColumn ? "md:mt-32" : ""
+                                    }`}
+                            >
+                                {/* Image Container */}
+                                <div className={`relative w-full ${project.aspect} overflow-hidden`}>
+                                    <Image
+                                        src={project.image}
+                                        alt={project.title}
+                                        fill
+                                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                                        sizes="(max-width: 768px) 100vw, 50vw"
+                                    />
+                                    {/* Overlay for hover interaction hint if needed, currently just pointer */}
+                                    <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300 bg-black mix-blend-overlay" />
+                                </div>
+
+                                {/* Text Content */}
+                                <div className="mt-6 flex flex-col items-start">
+                                    <h3 className="font-heading text-[20px] leading-none mb-2">
+                                        {project.title}
+                                    </h3>
+                                    <span className="font-mono text-[14px] tracking-wide text-gray-600">
+                                        {project.category}
+                                    </span>
                                 </div>
                             </div>
-                            <h3 className="text-right text-lg md:text-xl font-bold tracking-tight">
-                                {project.title}
-                            </h3>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
         </section>

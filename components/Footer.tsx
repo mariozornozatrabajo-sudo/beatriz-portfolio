@@ -9,8 +9,8 @@ export function Footer() {
     const container = useRef<HTMLElement>(null);
     const imageRef = useRef<HTMLDivElement>(null);
     const activeCategory = useRef<string | null>(null);
-    const xTo = useRef<gsap.QuickToFunc>();
-    const yTo = useRef<gsap.QuickToFunc>();
+    const xTo = useRef<gsap.QuickToFunc | null>(null);
+    const yTo = useRef<gsap.QuickToFunc | null>(null);
 
     const { contextSafe } = useGSAP(
         () => {

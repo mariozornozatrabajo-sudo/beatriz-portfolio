@@ -3,6 +3,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { Works } from "@/components/Works";
+import { ScrollSection } from "@/components/ScrollSection";
 import { GlitchButton } from "@/components/GlitchButton";
 import { Footer } from "@/components/Footer";
 import { ArrowDown, Menu, X } from "lucide-react";
@@ -148,6 +149,7 @@ export default function Home() {
           </button>
         </div>
       </main>
+      <ScrollSection />
       <Works />
     </>
   );

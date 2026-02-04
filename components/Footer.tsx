@@ -8,43 +8,53 @@ import { useRef, useState } from "react";
 export function Footer() {
     const container = useRef<HTMLElement>(null);
     const imageRef = useRef<HTMLDivElement>(null);
-    const [activeCategory, setActiveCategory] = useState<string | null>(null);
+    const activeCategory = useRef<string | null>(null);
+    const xTo = useRef<gsap.QuickToFunc>();
+    const yTo = useRef<gsap.QuickToFunc>();
 
-    const { contextSafe } = useGSAP({ scope: container });
+    const { contextSafe } = useGSAP(
+        () => {
+            if (!imageRef.current) return;
+            // Setup quickTo for performance
+            xTo.current = gsap.quickTo(imageRef.current, "x", { duration: 0.8, ease: "power3.out" });
+            yTo.current = gsap.quickTo(imageRef.current, "y", { duration: 0.8, ease: "power3.out" });
+        },
+        { scope: container }
+    );
 
-    // Move image with cursor using quickSetter for performance
+    // Move image with cursor using quickTo
     const moveImage = contextSafe((e: React.MouseEvent) => {
-        if (!imageRef.current || !activeCategory) return;
+        if (!imageRef.current || !activeCategory.current) return;
 
-        // Offset Y by -120px to make it appear above the cursor/span
-        gsap.to(imageRef.current, {
-            x: e.clientX,
-            y: e.clientY - 100,
-            duration: 0.8,
-            ease: "power3.out",
-        });
+        // Use quickTo if available
+        if (xTo.current && yTo.current) {
+            xTo.current(e.clientX);
+            yTo.current(e.clientY - 100);
+        }
     });
 
     const handleMouseEnter = contextSafe((category: string) => {
-        setActiveCategory(category);
+        activeCategory.current = category;
         if (imageRef.current) {
             gsap.to(imageRef.current, {
                 scale: 1,
                 opacity: 1,
                 duration: 0.4,
                 ease: "back.out(1.7)",
+                overwrite: true,
             });
         }
     });
 
     const handleMouseLeave = contextSafe(() => {
-        setActiveCategory(null);
+        activeCategory.current = null;
         if (imageRef.current) {
             gsap.to(imageRef.current, {
                 scale: 0,
                 opacity: 0,
                 duration: 0.3,
                 ease: "power2.in",
+                overwrite: true,
             });
         }
     });

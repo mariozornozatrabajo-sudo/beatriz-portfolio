@@ -2,9 +2,14 @@
 
 import { useRef, useState } from "react";
 
-export function GlitchButton() {
-    const [text, setText] = useState("Hablemos!");
-    const originalText = "Hablemos!";
+interface GlitchButtonProps {
+    text?: string;
+    onClick?: () => void;
+}
+
+export function GlitchButton({ text = "Hablemos!", onClick }: GlitchButtonProps) {
+    const [displayText, setDisplayText] = useState(text);
+    const originalText = text;
     const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-=[]{}|;':,./<>?";
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -14,7 +19,7 @@ export function GlitchButton() {
         if (intervalRef.current) clearInterval(intervalRef.current);
 
         intervalRef.current = setInterval(() => {
-            setText((prev) =>
+            setDisplayText((prev) =>
                 prev
                     .split("")
                     .map((letter, index) => {
@@ -30,24 +35,23 @@ export function GlitchButton() {
                 if (intervalRef.current) clearInterval(intervalRef.current);
             }
 
-            iteration += 1 / 3; // Control speed
-        }, 50);
+            iteration += 1; // Faster speed
+        }, 30); // Faster speed for longer text
     };
 
     const handleMouseLeave = () => {
-        // Optional: Reset immediately or let it finish. 
-        // Resetting ensures cleanly viewing original text if mouse leaves fast.
         if (intervalRef.current) clearInterval(intervalRef.current);
-        setText(originalText);
+        setDisplayText(originalText);
     };
 
     return (
         <button
+            onClick={onClick}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            className="bg-[var(--beatriz-green)] text-[var(--beatriz-blue)] px-8 py-3 md:px-12 md:py-4 text-sm md:text-base cursor-pointer font-bold uppercase tracking-wide font-mono w-48"
+            className="bg-[var(--beatriz-green)] text-[var(--beatriz-blue)] px-8 py-3 md:px-12 md:py-4 text-sm md:text-base cursor-pointer font-bold uppercase tracking-wide font-mono w-fit min-w-[200px]"
         >
-            {text}
+            {displayText}
         </button>
     );
 }

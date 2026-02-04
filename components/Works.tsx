@@ -4,7 +4,8 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { GlitchButton } from "./GlitchButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -43,6 +44,7 @@ const projects = [
 export function Works() {
     const container = useRef<HTMLElement>(null);
     const rightColTrigger = useRef<HTMLDivElement>(null);
+    const [hoveredProject, setHoveredProject] = useState<number | null>(null);
 
     useGSAP(
         () => {
@@ -67,13 +69,12 @@ export function Works() {
             });
 
             // Parallax Effect for Right Column
-            // We'll target the right column items specifically for a faster scroll speed
             const rightCards = cards.filter((_, i) => i % 2 !== 0);
 
-            if (window.innerWidth >= 768) { // Only do parallax on desktop
+            if (window.innerWidth >= 768) {
                 rightCards.forEach((card) => {
                     gsap.to(card, {
-                        y: -50, // Move up slightly faster than scroll
+                        y: -50,
                         ease: "none",
                         scrollTrigger: {
                             trigger: container.current,
@@ -117,7 +118,7 @@ export function Works() {
                     src="/works-bg.png"
                     alt="Works Background"
                     fill
-                    className="object-cover opacity-100" // Adjust opacity if needed, user didn't specify
+                    className="object-cover opacity-100"
                     quality={100}
                 />
             </div>
@@ -127,11 +128,15 @@ export function Works() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 md:gap-x-24 gap-y-24 md:gap-y-0">
                     {projects.map((project, index) => {
                         const isRightColumn = index % 2 !== 0;
+                        const isHovered = hoveredProject === project.id;
+                        const isBlurred = hoveredProject !== null && !isHovered;
 
                         return (
                             <div
                                 key={project.id}
-                                className={`project-card flex flex-col group ${isRightColumn ? "md:mt-32" : ""
+                                onMouseEnter={() => setHoveredProject(project.id)}
+                                onMouseLeave={() => setHoveredProject(null)}
+                                className={`project-card flex flex-col group transition-all duration-500 will-change-transform ${isRightColumn ? "md:mt-32" : ""} ${isBlurred ? "blur-sm grayscale opacity-60 scale-95" : "opacity-100 scale-100"
                                     }`}
                             >
                                 {/* Image Container */}
@@ -143,7 +148,7 @@ export function Works() {
                                         className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                                         sizes="(max-width: 768px) 100vw, 50vw"
                                     />
-                                    {/* Overlay for hover interaction hint if needed, currently just pointer */}
+                                    {/* Overlay for hover interaction hint */}
                                     <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300 bg-black mix-blend-overlay" />
                                 </div>
 
@@ -159,6 +164,12 @@ export function Works() {
                             </div>
                         );
                     })}
+                </div>
+
+
+                {/* View All Projects CTA */}
+                <div className="mt-32 w-full flex justify-center project-card opacity-0">
+                    <GlitchButton text="Ver todos los proyectos" />
                 </div>
             </div>
         </section>

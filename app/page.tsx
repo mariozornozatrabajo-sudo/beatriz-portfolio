@@ -73,7 +73,7 @@ export default function Home() {
             playsInline
             className="w-full h-full object-cover"
           >
-            <source src="/hero-video.mp4" type="video/mp4" />
+            <source src="/hero-video-sinefecto.mp4" type="video/mp4" />
           </video>
         </div>
 
@@ -89,7 +89,7 @@ export default function Home() {
               <Link
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className="hover:text-[var(--beatriz-green)] block"
+                className="hover:text-[var(--beatriz-yellow)] block"
               >
                 {item}
               </Link>
@@ -99,7 +99,7 @@ export default function Home() {
           {/* Mobile Menu Button */}
           <button
             onClick={toggleMenu}
-            className="md:hidden z-50 relative text-[var(--beatriz-blue)] hover:text-[var(--beatriz-green)] transition-colors"
+            className="md:hidden z-50 relative text-[var(--beatriz-blue)] hover:text-[var(--beatriz-yellow)] transition-colors"
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -112,7 +112,7 @@ export default function Home() {
                   key={item}
                   href={`#${item.toLowerCase()}`}
                   onClick={() => setIsMenuOpen(false)}
-                  className="hover:text-[var(--beatriz-green)] block text-[var(--beatriz-blue)] font-bold"
+                  className="hover:text-[var(--beatriz-yellow)] block text-[var(--beatriz-blue)] font-bold"
                 >
                   {item}
                 </Link>
@@ -123,16 +123,21 @@ export default function Home() {
 
         {/* Central Content */}
         <div className="flex flex-col justify-center min-h-screen px-6 md:px-10 py-20 relative">
-          <div className="space-y-2 md:space-y-4 max-w-[90vw]">
-            <h1 className="flex flex-col font-normal leading-[0.9] text-white mix-blend-difference tracking-tighter">
-              <span className="hero-anim text-5xl md:text-7xl lg:text-8xl">Soy Beatriz</span>
-              <span className="hero-anim text-5xl md:text-7xl lg:text-8xl">Graphic Designer</span>
+          <div className="space-y-2 md:space-y-4 max-w-full w-fit mt-20">
+            {/* Title */}
+            <h1 className="hero-anim font-semibold text-6xl md:text-8xl lg:text-[120px] leading-none text-[var(--beatriz-yellow)] mix-blend-exclusion tracking-tighter">
+              Beatriz<br />Montes
             </h1>
+
+            {/* Description */}
+            <p className="hero-anim font-mono text-lg md:text-[20px] w-[40%] leading-[1.3] mix-blend-exclusion text-white break-words">
+              A Creative Partner for companies and brands that decide to move forward.
+            </p>
           </div>
 
           {/* CTA Button */}
-          <div className="hero-anim mt-6 ml-2 md:ml-4">
-            <GlitchButton />
+          <div className="hero-anim mt-6">
+            <GlitchButton text="Hablemos!" />
           </div>
         </div>
 
@@ -143,9 +148,9 @@ export default function Home() {
         <div className="footer-anim absolute bottom-16 right-6 md:bottom-20 md:right-10 z-30">
           <button
             onClick={handleScrollToWorks}
-            className="bg-[var(--beatriz-blue)] text-white w-12 h-12 md:w-16 md:h-16 flex items-center justify-center hover:bg-[#000088] transition-colors cursor-pointer"
+            className="hero-btn group bg-[var(--beatriz-blue)] text-white w-12 h-12 md:w-16 md:h-16 flex items-center justify-center transition-colors cursor-pointer hover:bg-transparent hover:backdrop-invert hover:text-white border-none outline-none ring-0"
           >
-            <ArrowDown className="w-5 h-5 md:w-6 md:h-6" />
+            <ArrowDown className="hero-arrow w-5 h-5 md:w-6 md:h-6" />
           </button>
         </div>
       </main>

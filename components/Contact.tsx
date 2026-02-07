@@ -78,14 +78,14 @@ export function Contact() {
                                 Me cago en vuestra puta vida, contratadme :)
                             </p>
 
-                            <div className="flex flex-wrap gap-6 text-[var(--beatriz-green)] font-mono text-sm md:text-base">
+                            <div className="flex flex-wrap gap-6 text-[var(--beatriz-yellow)] font-mono text-sm md:text-base">
                                 <Link href="#" className="hover:underline">LinkedIn</Link>
                                 <Link href="#" className="hover:underline">Instagram</Link>
                                 <Link href="#" className="hover:underline">Behance</Link>
                             </div>
                         </div>
 
-                        <div className="space-y-2 text-[var(--beatriz-green)] font-mono text-sm md:text-base">
+                        <div className="space-y-2 text-[var(--beatriz-yellow)] font-mono text-sm md:text-base">
                             <p>+ 34 625 22 66 11</p>
                             <p>tirce1120@gmail.com</p>
                         </div>

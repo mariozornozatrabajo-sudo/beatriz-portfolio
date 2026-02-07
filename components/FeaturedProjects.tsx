@@ -210,7 +210,7 @@ export function FeaturedProjects() {
             {/* Custom Mouse Follower Portal (Could be local absolute for now) */}
             <div
                 ref={cursorBubble}
-                className="pointer-events-none fixed top-0 left-0 w-24 h-24 bg-[var(--beatriz-green)] rounded-full z-50 mix-blend-difference flex items-center justify-center text-[var(--beatriz-blue)] text-xs font-mono uppercase opacity-0 scale-0 -translate-x-1/2 -translate-y-1/2 hidden md:flex"
+                className="pointer-events-none fixed top-0 left-0 w-24 h-24 bg-[var(--beatriz-yellow)] rounded-full z-50 mix-blend-difference flex items-center justify-center text-[var(--beatriz-blue)] text-xs font-mono uppercase opacity-0 scale-0 -translate-x-1/2 -translate-y-1/2 hidden md:flex"
                 style={{ top: 0, left: 0 }} // Controlled via global mouse ideally, but for now we'll rely on global cursor if exists or just standard hover
             >
                 View

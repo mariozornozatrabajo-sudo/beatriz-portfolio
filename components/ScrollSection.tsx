@@ -61,7 +61,7 @@ export const ScrollSection = () => {
     const data = [
         { title: "Libros", items: ["Libros", "Libros", "Libros", "Libros"] },
         { title: "Vídeos", items: ["Vídeos", "Vídeos", "Vídeos", "Vídeos"] },
-        { title: "Dibujitos", items: ["Dibuji-", "Tos", "Dibuji-", "Tos", "Dibuji-", "Tos"] },
+        { title: "Dibujitos", items: ["Doodle", "Doodle", "Doodle", "Doodle"] },
         { title: "Marcas", items: ["Marcas", "Marcas", "Marcas", "Marcas"] },
     ];
 

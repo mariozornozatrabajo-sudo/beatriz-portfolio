@@ -3,7 +3,7 @@
 :root {
   /* Design Colors */
   --beatriz-blue: #0000aa;
-  --beatriz-green: #00ff2a;
+  --beatriz-yellow: #FFFF00;
   --beatriz-gray: #D4D4D4;
   --background: var(--beatriz-gray);
   --foreground: #000000;
@@ -11,7 +11,7 @@
 
 @theme inline {
   --color-beatriz-blue: var(--beatriz-blue);
-  --color-beatriz-green: var(--beatriz-green);
+  --color-beatriz-yellow: var(--beatriz-yellow);
   --color-beatriz-gray: var(--beatriz-gray);
 
   --font-mono: var(--font-cascadia-code);
@@ -23,6 +23,7 @@ body {
   color: var(--foreground);
   font-family: var(--font-mono);
   font-size: 16px;
+  overflow-x: hidden;
 }
 
 h1,
@@ -41,4 +42,34 @@ h1 {
 
 a {
   font-size: 20px;
+}
+
+@keyframes glitch-bounce {
+  0% {
+    transform: translateY(0);
+  }
+
+  20% {
+    transform: translateY(-5px);
+  }
+
+  40% {
+    transform: translateY(3px);
+  }
+
+  60% {
+    transform: translateY(-8px);
+  }
+
+  80% {
+    transform: translateY(2px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.hero-btn:hover .hero-arrow {
+  animation: glitch-bounce 1.6s step-end infinite;
 }

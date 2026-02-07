@@ -10,26 +10,39 @@ interface GlitchButtonProps {
 export function GlitchButton({ text = "Hablemos!", onClick }: GlitchButtonProps) {
     const [displayText, setDisplayText] = useState(text);
     const originalText = text;
-    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-=[]{}|;':,./<>?";
+    // Use the characters from the text itself for the scramble effect
+    const letters = text.split("");
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
+    const shuffledIndicesRef = useRef<number[]>([]);
 
     const handleMouseEnter = () => {
         let iteration = 0;
 
         if (intervalRef.current) clearInterval(intervalRef.current);
 
+        // Create a shuffled array of indices
+        const indices = Array.from({ length: originalText.length }, (_, i) => i);
+        for (let i = indices.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [indices[i], indices[j]] = [indices[j], indices[i]];
+        }
+        shuffledIndicesRef.current = indices;
+
         intervalRef.current = setInterval(() => {
-            setDisplayText((prev) =>
-                prev
+            setDisplayText((prev) => {
+                const solvedIndices = new Set(shuffledIndicesRef.current.slice(0, iteration));
+
+                return originalText
                     .split("")
                     .map((letter, index) => {
-                        if (index < iteration) {
+                        if (solvedIndices.has(index)) {
                             return originalText[index];
                         }
-                        return letters[Math.floor(Math.random() * 26)];
+                        // Pick a random letter from the original text
+                        return letters[Math.floor(Math.random() * letters.length)];
                     })
-                    .join("")
-            );
+                    .join("");
+            });
 
             if (iteration >= originalText.length) {
                 if (intervalRef.current) clearInterval(intervalRef.current);
@@ -49,7 +62,7 @@ export function GlitchButton({ text = "Hablemos!", onClick }: GlitchButtonProps)
             onClick={onClick}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            className="bg-[var(--beatriz-green)] text-[var(--beatriz-blue)] px-8 py-3 md:px-12 md:py-4 text-sm md:text-base cursor-pointer font-bold uppercase tracking-wide font-mono w-fit min-w-[200px]"
+            className="bg-[var(--beatriz-yellow)] text-[var(--beatriz-blue)] px-1 py-0 text-sm md:text-base cursor-pointer font-bold uppercase tracking-wide font-mono w-fit"
         >
             {displayText}
         </button>

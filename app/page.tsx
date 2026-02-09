@@ -2,7 +2,7 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { Works } from "@/components/Works";
+import { FeaturedProjects } from "@/components/FeaturedProjects";
 import { ScrollSection } from "@/components/ScrollSection";
 import { GlitchButton } from "@/components/GlitchButton";
 import { Footer } from "@/components/Footer";
@@ -61,7 +61,7 @@ export default function Home() {
     <>
       <main
         ref={container}
-        className="relative min-h-screen w-full bg-[var(--beatriz-gray)] text-[var(--beatriz-blue)] overflow-hidden font-mono"
+        className="relative min-h-screen w-full bg-[var(--beatriz-gray)] text-[var(--beatriz-blue)] overflow-hidden font-mono snap-start"
       >
         {/* Background Video */}
         <div className="absolute inset-0 z-0">
@@ -88,7 +88,7 @@ export default function Home() {
             {["About", "Works", "Contact"].map((item) => (
               <Link
                 key={item}
-                href={`#${item.toLowerCase()}`}
+                href={item === "Works" ? "/works" : `/#${item.toLowerCase()}`}
                 className="hover:text-[var(--beatriz-yellow)] block"
               >
                 {item}
@@ -110,7 +110,7 @@ export default function Home() {
               {["About", "Works", "Contact"].map((item) => (
                 <Link
                   key={item}
-                  href={`#${item.toLowerCase()}`}
+                  href={item === "Works" ? "/works" : `/#${item.toLowerCase()}`}
                   onClick={() => setIsMenuOpen(false)}
                   className="hover:text-[var(--beatriz-yellow)] block text-[var(--beatriz-blue)] font-bold"
                 >
@@ -155,7 +155,7 @@ export default function Home() {
         </div>
       </main>
       <ScrollSection />
-      <Works />
+      <FeaturedProjects />
     </>
   );
 }

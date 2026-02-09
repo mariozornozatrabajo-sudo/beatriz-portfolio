@@ -66,7 +66,7 @@ export const ScrollSection = () => {
     ];
 
     return (
-        <section ref={container} className="relative w-full h-screen bg-[#D4D4D4] flex items-center justify-center overflow-hidden">
+        <section ref={container} className="relative w-full h-screen bg-[#D4D4D4] flex items-center justify-center overflow-hidden snap-start">
             <div className="w-full px-6 md:px-10 grid grid-cols-2 md:flex md:justify-between gap-4 h-full items-center">
                 {data.map((col, i) => (
                     <div

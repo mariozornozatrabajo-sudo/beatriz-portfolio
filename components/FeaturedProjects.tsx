@@ -1,219 +1,142 @@
-"use client";
-
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
+import { projects } from "@/data/projects";
+import { GlitchButton } from "./GlitchButton";
+import { GlitchText } from "./GlitchText";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Project Data
-const projects = [
-    {
-        id: 1,
-        title: "Eterno Retorno",
-        category: "Editorial Design",
-        image: "/img-proyectos/eternoretorno-editorial.png",
-        aspect: "aspect-[3/4]",
-        link: "/projects/eterno-retorno"
-    },
-    {
-        id: 2,
-        title: "Memories In Motion",
-        category: "Motion Graphics",
-        image: "/img-proyectos/memories-motion.png",
-        aspect: "aspect-square",
-        link: "/projects/memories"
-    },
-    {
-        id: 3,
-        title: "Nudo",
-        category: "Editorial Experience",
-        image: "/img-proyectos/nudo-editorial.png",
-        aspect: "aspect-[4/5]",
-        link: "/projects/nudo"
-    }
-];
-
 export function FeaturedProjects() {
     const container = useRef<HTMLElement>(null);
-    const cursorBubble = useRef<HTMLDivElement>(null);
+    const [hoveredProjectId, setHoveredProjectId] = useState<number | null>(null);
+    const [galleryIndex, setGalleryIndex] = useState(0);
+
+    // Gallery Slideshow Interval
+    useEffect(() => {
+        if (hoveredProjectId === null) return;
+
+        const interval = setInterval(() => {
+            setGalleryIndex(prev => prev + 1);
+        }, 500); // 0.5s delay between images
+
+        return () => clearInterval(interval);
+    }, [hoveredProjectId]);
 
     useGSAP(
-        () => {
-            // Setup parallax effect for right column elements
-            // We want the right column to move differently effectively creating the staggered feel
-            const mm = gsap.matchMedia();
-
-            mm.add("(min-width: 768px)", () => {
-                // Select every second project (right column in a 2-col grid)
-                const rightColProjects = gsap.utils.toArray<HTMLElement>(".project-item:nth-child(even)");
-
-                rightColProjects.forEach((proj) => {
-                    gsap.to(proj, {
-                        y: -120, // Move up as we scroll down
-                        ease: "none",
-                        scrollTrigger: {
-                            trigger: container.current,
-                            start: "top bottom",
-                            end: "bottom top",
-                            scrub: 1 // Smooth scrubbing
-                        }
-                    });
-                });
-            });
-
-            // Reveal Animation for each project
-            const items = gsap.utils.toArray<HTMLElement>(".project-item");
-            items.forEach((item) => {
-                const img = item.querySelector("img");
-                const text = item.querySelector(".project-info");
-
-                // Image reveal
-                gsap.fromTo(img,
-                    { scale: 1.2, filter: "grayscale(100%)" },
-                    {
-                        scale: 1,
-                        filter: "grayscale(0%)",
-                        duration: 1.5,
-                        ease: "power2.out",
-                        scrollTrigger: {
-                            trigger: item,
-                            start: "top 85%",
-                        }
-                    }
-                );
-
-                // Text Reveal
-                gsap.fromTo(text,
-                    { y: 20, opacity: 0 },
-                    {
-                        y: 0,
-                        opacity: 1,
-                        duration: 0.8,
-                        ease: "power2.out",
-                        scrollTrigger: {
-                            trigger: item,
-                            start: "top 90%",
-                        }
-                    }
-                );
-            });
-
-            // Cursor Follower (Simple Custom Cursor)
-            // Note: Currently basic GSAP mouse move, ideally this would hook into a global custom cursor system
-            // if one exists, but keeping it localized for this component as requested to work standalone.
-
-        },
-        { scope: container }
+        // ... (existing useGSAP)
     );
 
-    // Quick custom cursor handler for project hover
-    const onMouseEnter = (e: React.MouseEvent) => {
-        // Option: expand custom cursor
-        gsap.to(cursorBubble.current, { scale: 1, opacity: 1, duration: 0.3 });
-    };
-
-    const onMouseLeave = (e: React.MouseEvent) => {
-        gsap.to(cursorBubble.current, { scale: 0, opacity: 0, duration: 0.3 });
-    };
-
-    const onMouseMove = (e: React.MouseEvent) => {
-        const { clientX, clientY } = e;
-        // Simple follow
-        // In a real refined app, we'd use a global context or fixed portal
-        // Here we just let the bubble follow within the container or use fixed positioning if valid
-    };
+    // Filter only top 4 projects
+    const featuredProjects = projects.filter(p => p.featured).slice(0, 4);
 
     return (
         <section
-            id="featured"
+            id="works"
             ref={container}
-            className="relative w-full min-h-screen bg-[var(--background)] py-24 md:py-40 px-6 md:px-12 overflow-hidden"
+            className="relative w-full bg-[var(--background)]"
         >
-            <div className="max-w-[1600px] mx-auto">
-                <div className="mb-24 md:mb-32">
-                    <h2 className="font-heading text-6xl md:text-8xl lg:text-9xl text-[var(--beatriz-blue)] uppercase leading-[0.85]">
-                        <span className="block overflow-hidden">
-                            <span className="block animate-reveal">Featured</span>
-                        </span>
-                        <span className="block overflow-hidden ml-12 md:ml-32">
-                            <span className="block animate-reveal delay-100">Projects</span>
-                        </span>
-                    </h2>
-                </div>
+            <div>
+                {featuredProjects.map((project, index) => {
+                    // Use gallery if available, otherwise fallback to repeating main image
+                    const galleryImages = project.gallery?.length
+                        ? project.gallery
+                        : [project.image];
 
-                {/* Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-y-24 md:gap-y-0 gap-x-12 lg:gap-x-32 relative">
-                    {/* 
-                      Logic for 2 column layout:
-                      Even indices will be visually right column (in LTR grid flow) if we use standard grid flow.
-                      However, to get the specific "staggered vertical offset" look from design references,
-                      we often manually displace the second column.
-                      
-                      Here, we use standard grid, but the right column items will be translated via GSAP 
-                      as scrolling happens. Also we give them an initial top margin.
-                     */}
+                    const currentImage = galleryImages[galleryIndex % galleryImages.length];
 
-                    {projects.map((project, idx) => {
-                        const isRight = idx % 2 !== 0;
-                        return (
-                            <div
-                                key={project.id}
-                                className={`project-item group relative flex flex-col ${isRight ? 'md:mt-48' : ''}`}
-                            >
-                                <Link href={project.link || "#"} className="block w-full cursor-none" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-                                    <div className={`relative w-full ${project.aspect} overflow-hidden bg-gray-200 mb-6`}>
-                                        <Image
-                                            src={project.image}
-                                            alt={project.title}
-                                            fill
-                                            className="object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
-                                        />
-                                        {/* Overlay */}
-                                        <div className="absolute inset-0 bg-[var(--beatriz-blue)] opacity-0 group-hover:opacity-20 transition-opacity duration-500 mix-blend-multiply" />
-                                    </div>
-
-                                    <div className="project-info flex justify-between items-baseline border-b border-[var(--beatriz-blue)] pb-4">
-                                        <h3 className="font-heading text-3xl md:text-4xl text-[var(--beatriz-blue)] uppercase group-hover:indent-4 transition-all duration-300">
-                                            {project.title}
-                                        </h3>
-                                        <span className="font-mono text-xs md:text-sm text-[var(--beatriz-blue)] uppercase tracking-widest">
-                                            {project.category}
-                                        </span>
-                                    </div>
-                                </Link>
+                    return (
+                        <div
+                            key={project.id}
+                            className="featured-item sticky top-0 w-full min-h-screen flex flex-col justify-center overflow-hidden"
+                        >
+                            {/* Background Image - Full Screen but treated as "Mockup" background */}
+                            <div className="absolute inset-0 z-0 w-full h-full">
+                                <div className="featured-img-container relative w-full h-full">
+                                    <Image
+                                        src={project.image}
+                                        alt={project.title}
+                                        fill
+                                        className="object-cover" // Full opacity for mix-blend to work best
+                                        sizes="100vw"
+                                        priority={index === 0}
+                                    />
+                                    {/* Overlay removed for mix-blend-exclusion effect */}
+                                </div>
                             </div>
-                        )
-                    })}
-                </div>
 
-                {/* View All Button */}
-                <div className="flex justify-center mt-32 md:mt-48">
-                    <Link
-                        href="/works"
-                        className="group relative inline-flex items-center justify-center px-12 py-6 overflow-hidden font-mono font-medium text-[var(--beatriz-blue)] border border-[var(--beatriz-blue)] rounded-full hover:text-white transition-colors duration-300"
-                    >
-                        <span className="absolute w-full h-full bg-[var(--beatriz-blue)] absolute inset-0 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></span>
-                        <span className="relative z-10 flex items-center gap-4">
-                            View All Projects
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 group-hover:rotate-45 transition-transform duration-300">
-                                <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </span>
-                    </Link>
-                </div>
+                            {/* Content Container - Matching Nav Alignment (p-6 md:p-10) */}
+                            {/* Removing z-10 to prevent isolation from background image which might block mix-blend-mode */}
+                            <div className="relative w-full h-full px-6 md:px-10 grid grid-cols-12 gap-5 pointer-events-none">
+                                <div className="col-span-12 md:col-span-8 lg:col-span-6 flex flex-col justify-center min-h-screen pointer-events-auto">
+                                    {/* Fixed Height Container to match Figma's 613px spacing and positioning */}
+                                    <div className="flex flex-col justify-between h-[600px] md:h-[613px]">
+                                        <div className="flex flex-col gap-6 items-start">
+
+                                            {/* Category & Title */}
+                                            <div className="flex flex-col gap-1 items-start w-full">
+                                                {/* Category: 20px Cascadia Code */}
+                                                <p className="reveal-text font-mono text-[16px] md:text-[20px] text-[var(--beatriz-yellow)] mix-blend-exclusion">
+                                                    {project.category}
+                                                </p>
+
+                                                {/* Title: 96px Fractul Variable SemiBold, Leading 90px */}
+                                                <h2 className="reveal-text font-heading font-semibold text-[60px] md:text-[96px] leading-[0.9] md:leading-[90px] text-[var(--beatriz-blue)] mix-blend-exclusion capitalize">
+                                                    {project.title}
+                                                </h2>
+                                            </div>
+
+                                            {/* Description: 16px Cascadia Code, max-w-[600px] */}
+                                            <p className="reveal-text font-mono text-[14px] md:text-[16px] text-white mix-blend-exclusion max-w-[600px] leading-normal">
+                                                {project.description}
+                                            </p>
+                                        </div>
+
+                                        {/* Link: Positioned at bottom of 613px container via justify-between */}
+                                        <div
+                                            className="reveal-text flex justify-start mix-blend-exclusion" /* Apply mix-blend-exclusion to wrapper too */
+                                            onMouseEnter={() => setHoveredProjectId(project.id)}
+                                            onMouseLeave={() => setHoveredProjectId(null)}
+                                        >
+                                            <Link
+                                                href="/works"
+                                                className="font-mono text-[20px] md:text-[24px] text-white mix-blend-exclusion underline decoration-solid underline-offset-4 hover:text-[var(--beatriz-yellow)] transition-colors"
+                                            >
+                                                <GlitchText text="[Leer +]" />
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Gallery Column - Visible on Hover - Larger Container */}
+                                {/* Using conditional rendering or key to trigger glitch animation on entry */}
+                                <div className={`col-span-12 lg:col-span-6 hidden lg:flex flex-col justify-center items-end h-full pointer-events-none`}>
+                                    {hoveredProjectId === project.id && (
+                                        <div className="w-full max-w-[800px] h-[500px] md:h-[600px] relative overflow-hidden rounded-lg animate-glitch-appear">
+                                            <Image
+                                                key={galleryIndex} // Key triggers animation on image change
+                                                src={currentImage}
+                                                alt={`${project.title} gallery`}
+                                                fill
+                                                className="object-cover rounded-lg" // Removed fade-in to let the container glitch-in dominate, or keep for smooth slide
+                                            />
+                                        </div>
+                                    )}
+                                </div>
+
+                            </div>
+                        </div>
+                    );
+                })}
             </div>
 
-            {/* Custom Mouse Follower Portal (Could be local absolute for now) */}
-            <div
-                ref={cursorBubble}
-                className="pointer-events-none fixed top-0 left-0 w-24 h-24 bg-[var(--beatriz-yellow)] rounded-full z-50 mix-blend-difference flex items-center justify-center text-[var(--beatriz-blue)] text-xs font-mono uppercase opacity-0 scale-0 -translate-x-1/2 -translate-y-1/2 hidden md:flex"
-                style={{ top: 0, left: 0 }} // Controlled via global mouse ideally, but for now we'll rely on global cursor if exists or just standard hover
-            >
-                View
+            <div className="w-full flex justify-center py-20 bg-[var(--background)]">
+                <Link href="/works">
+                    <GlitchButton text="Ver todos los proyectos" />
+                </Link>
             </div>
         </section>
     );

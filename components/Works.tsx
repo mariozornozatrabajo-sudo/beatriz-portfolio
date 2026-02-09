@@ -4,47 +4,33 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
+import Link from "next/link";
 import { useRef, useState } from "react";
 import { GlitchButton } from "./GlitchButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Dummy Data
-const projects = [
-    {
-        id: 1,
-        title: "Eterno Retorno",
-        category: "Editorial",
-        image: "/img-proyectos/eternoretorno-editorial.png",
-        aspect: "aspect-[3/4]",
-    },
-    {
-        id: 2,
-        title: "Memories",
-        category: "Motion",
-        image: "/img-proyectos/memories-motion.png",
-        aspect: "aspect-square",
-    },
-    {
-        id: 3,
-        title: "Nudo",
-        category: "Editorial",
-        image: "/img-proyectos/nudo-editorial.png",
-        aspect: "aspect-[4/3]",
-    },
-    {
-        id: 4,
-        title: "Teatro Canal",
-        category: "Identidad",
-        image: "/img-proyectos/teatrocanal-identidad.jpg",
-        aspect: "aspect-[3/5]",
-    },
-];
+import { projects, Category } from "@/data/projects";
 
-export function Works() {
+interface WorksProps {
+    showTitle?: boolean;
+    showFilters?: boolean;
+    showViewAllButton?: boolean;
+}
+
+export function Works({ showTitle = false, showFilters = false, showViewAllButton = true }: WorksProps) {
     const container = useRef<HTMLElement>(null);
     const rightColTrigger = useRef<HTMLDivElement>(null);
     const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+    const [filter, setFilter] = useState<Category | 'all'>('all');
+
+    const filteredProjects = filter === 'all'
+        ? projects
+        : projects.filter(p => p.category.toLowerCase() === filter.toLowerCase());
+
+    const categories: (Category | 'all')[] = ['all', 'editorial', 'motion', 'illustrations', 'identidad', 'visual identity'];
+    // Filter out categories that don't have projects if needed, or just keep static list
+    const activeCategories = ['all', ...Array.from(new Set(projects.map(p => p.category)))];
 
     useGSAP(
         () => {
@@ -69,6 +55,7 @@ export function Works() {
             });
 
             // Parallax Effect for Right Column
+            // Only apply if we have enough items to form columns
             const rightCards = cards.filter((_, i) => i % 2 !== 0);
 
             if (window.innerWidth >= 768) {
@@ -102,8 +89,11 @@ export function Works() {
                     }
                 }
             );
+
+            // Re-refresh ScrollTrigger after layout changes
+            ScrollTrigger.refresh();
         },
-        { scope: container }
+        { scope: container, dependencies: [filter, filteredProjects] }
     );
 
     return (
@@ -124,9 +114,36 @@ export function Works() {
             </div>
 
             <div ref={rightColTrigger} className="relative z-10 max-w-[1400px] mx-auto py-32 md:py-48 px-6 md:px-10 -mt-[100vh]">
+
+                {/* Optional Title and Filters */}
+                {(showTitle || showFilters) && (
+                    <div className="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-8">
+                        {showTitle && (
+                            <h2 className="font-heading text-5xl md:text-7xl leading-none">Proyectos</h2>
+                        )}
+
+                        {showFilters && (
+                            <div className="flex flex-wrap gap-4 md:gap-8">
+                                {activeCategories.map((cat) => (
+                                    <button
+                                        key={cat}
+                                        onClick={() => setFilter(cat as Category | 'all')}
+                                        className={`font-mono text-sm uppercase tracking-wide transition-colors ${filter === cat
+                                            ? "text-[var(--beatriz-blue)] font-bold decoration-2 underline underline-offset-4"
+                                            : "text-gray-500 hover:text-[var(--beatriz-blue)]"
+                                            }`}
+                                    >
+                                        {cat}
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                )}
+
                 {/* Grid Layout */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 md:gap-x-24 gap-y-24 md:gap-y-0">
-                    {projects.map((project, index) => {
+                    {filteredProjects.map((project, index) => {
                         const isRightColumn = index % 2 !== 0;
                         const isHovered = hoveredProject === project.id;
                         const isBlurred = hoveredProject !== null && !isHovered;
@@ -168,9 +185,13 @@ export function Works() {
 
 
                 {/* View All Projects CTA */}
-                <div className="mt-32 w-full flex justify-center project-card opacity-0">
-                    <GlitchButton text="Ver todos los proyectos" />
-                </div>
+                {showViewAllButton && (
+                    <div className="mt-32 w-full flex justify-center project-card opacity-0">
+                        <Link href="/works">
+                            <GlitchButton text="Ver todos los proyectos" />
+                        </Link>
+                    </div>
+                )}
             </div>
         </section>
     );

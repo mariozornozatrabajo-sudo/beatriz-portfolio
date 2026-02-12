@@ -149,12 +149,12 @@ export function Works({ showTitle = false, showFilters = false, showViewAllButto
                         const isBlurred = hoveredProject !== null && !isHovered;
 
                         return (
-                            <div
+                            <Link
                                 key={project.id}
+                                href={`/works/${project.id}`}
+                                className={`project-card flex flex-col group transition-all duration-500 will-change-transform ${isRightColumn ? "md:mt-32" : ""} ${isBlurred ? "blur-sm grayscale opacity-60 scale-95" : "opacity-100 scale-100"}`}
                                 onMouseEnter={() => setHoveredProject(project.id)}
                                 onMouseLeave={() => setHoveredProject(null)}
-                                className={`project-card flex flex-col group transition-all duration-500 will-change-transform ${isRightColumn ? "md:mt-32" : ""} ${isBlurred ? "blur-sm grayscale opacity-60 scale-95" : "opacity-100 scale-100"
-                                    }`}
                             >
                                 {/* Image Container */}
                                 <div className={`relative w-full ${project.aspect} overflow-hidden`}>
@@ -178,7 +178,7 @@ export function Works({ showTitle = false, showFilters = false, showViewAllButto
                                         {project.category}
                                     </span>
                                 </div>
-                            </div>
+                            </Link>
                         );
                     })}
                 </div>

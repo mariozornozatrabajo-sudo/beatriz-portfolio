@@ -62,7 +62,7 @@ export function GlitchButton({ text = "Hablemos!", onClick }: GlitchButtonProps)
             onClick={onClick}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            className="bg-[var(--beatriz-yellow)] text-[var(--beatriz-blue)] px-1 py-0 text-sm md:text-base cursor-pointer font-bold uppercase tracking-wide font-mono w-fit"
+            className="bg-[var(--beatriz-yellow)] text-[var(--beatriz-blue)] px-1 py-0 text-sm md:text-base cursor-pointer font-normal tracking-wide font-mono w-fit"
         >
             {displayText}
         </button>

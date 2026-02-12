@@ -102,7 +102,7 @@ export function FeaturedProjects() {
                                             onMouseLeave={() => setHoveredProjectId(null)}
                                         >
                                             <Link
-                                                href="/works"
+                                                href={`/works/${project.id}`}
                                                 className="font-mono text-[20px] md:text-[24px] text-white mix-blend-exclusion underline decoration-solid underline-offset-4 hover:text-[var(--beatriz-yellow)] transition-colors"
                                             >
                                                 <GlitchText text="[Leer +]" />

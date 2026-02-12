@@ -1,0 +1,78 @@
+"use client";
+
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { Menu, X } from "lucide-react";
+import Link from "next/link";
+import { useRef, useState } from "react";
+
+export function Nav() {
+    const container = useRef<HTMLElement>(null);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+    useGSAP(
+        () => {
+            // Animation logic transferred from Home page
+            // We ensure the animation logic matches what was in Home's useGSAP
+            const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+            tl.from(".nav-anim", {
+                y: -20,
+                opacity: 0,
+                stagger: 0.1,
+                duration: 0.8
+            });
+        },
+        { scope: container }
+    );
+
+    return (
+        <header
+            ref={container}
+            className="fixed top-0 left-0 w-full p-6 md:p-10 flex justify-between items-center z-50 text-sm md:text-base font-normal text-[var(--beatriz-blue)] pointer-events-none"
+        >
+            <div className="nav-anim tracking-tight font-mono text-[20px] leading-none z-50 relative mix-blend-difference text-[var(--beatriz-blue)] pointer-events-auto">
+                <Link href="/">Beatriz Montes Gijón</Link>
+            </div>
+
+            {/* Desktop Nav */}
+            <nav className="nav-anim hidden md:flex gap-12 bg-[var(--beatriz-blue)] text-white mix-blend-difference pointer-events-auto font-mono">
+                {["About", "Works", "Contact"].map((item) => (
+                    <Link
+                        key={item}
+                        href={item === "Works" ? "/works" : `/#${item.toLowerCase()}`}
+                        className="hover:text-[var(--beatriz-yellow)] block"
+                    >
+                        {item}
+                    </Link>
+                ))}
+            </nav>
+
+            {/* Mobile Menu Button */}
+            <button
+                onClick={toggleMenu}
+                className="md:hidden z-50 relative text-[var(--beatriz-blue)] hover:text-[var(--beatriz-yellow)] transition-colors pointer-events-auto nav-anim"
+            >
+                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+
+            {/* Mobile Menu Overlay */}
+            {isMenuOpen && (
+                <div className="fixed inset-0 bg-[var(--beatriz-gray)] z-40 flex flex-col items-center justify-center gap-8 text-3xl pointer-events-auto">
+                    {["About", "Works", "Contact"].map((item) => (
+                        <Link
+                            key={item}
+                            href={item === "Works" ? "/works" : `/#${item.toLowerCase()}`}
+                            onClick={() => setIsMenuOpen(false)}
+                            className="hover:text-[var(--beatriz-yellow)] block text-[var(--beatriz-blue)] font-bold font-mono"
+                        >
+                            {item}
+                        </Link>
+                    ))}
+                </div>
+            )}
+        </header>
+    );
+}

@@ -9,6 +9,7 @@ export interface Project {
     description?: string;
     featured: boolean;
     gallery?: string[]; // Array of image URLs for the hover loop
+    roles?: string[]; // New field for roles
 }
 
 export const projects: Project[] = [
@@ -55,6 +56,18 @@ export const projects: Project[] = [
             "/img-proyectos/memories-motion.png", // Different image
             "/img-proyectos/nudo-editorial.png" // Different image
         ],
+        featured: true,
+    },
+
+    {
+        id: 5,
+        title: "Otras Mentes",
+        category: "editorial",
+        image: "/img-proyectos/eternoretorno-editorial.png", // Using placeholder for now
+        aspect: "aspect-[3/4]",
+        description: "Remaquetación editorial de Otras mentes (Peter Godfrey-Smith) como una versión más actual de la edición original. La idea fue modernizar cómo se organiza el texto y cómo se integran las imágenes, cuidando la lectura y la jerarquía.\n\nEl diseño está diseñado en formato A4 apaisado, con A5 por página (doble página). Toda la composición se apoya en una retícula de 6 columnas × 4 filas, que mantiene coherencia y permite variar la composición según el contenido. Las imágenes están tratadas con mapas de degradado, para unificar el estilo y darle un acabado más contemporáneo.",
+        gallery: ["/img-proyectos/nudo-editorial.png", "/img-proyectos/memories-motion.png", "/img-proyectos/teatrocanal-identidad.jpg"], // Placeholders
+        roles: ["Diseñadora", "Maquetadora"],
         featured: true,
     },
 ];

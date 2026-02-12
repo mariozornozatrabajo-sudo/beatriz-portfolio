@@ -3,6 +3,7 @@ import { Cascadia_Code } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { Contact } from "@/components/Contact";
+import { Nav } from "@/components/Nav";
 
 const cascadiaCode = Cascadia_Code({
   variable: "--font-cascadia-code",
@@ -28,6 +29,7 @@ export default function RootLayout({
         className={`${cascadiaCode.variable} antialiased`}
       >
         <SmoothScroll>
+          <Nav />
           {children}
           <Contact />
         </SmoothScroll>

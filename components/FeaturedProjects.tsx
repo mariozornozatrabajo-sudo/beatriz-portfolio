@@ -27,7 +27,27 @@ export function FeaturedProjects() {
     }, [hoveredProjectId]);
 
     useGSAP(
-        // ... (existing useGSAP)
+        () => {
+            const items = gsap.utils.toArray(".featured-item") as HTMLElement[];
+
+            items.forEach((item, index) => {
+                const nextItem = items[index + 1];
+                if (!nextItem) return;
+
+                gsap.to(item, {
+                    scale: 0.9,
+                    opacity: 0.4,
+                    filter: "blur(10px)",
+                    scrollTrigger: {
+                        trigger: nextItem,
+                        start: "top bottom", // When the top of the next item hits the bottom of the viewport
+                        end: "top top", // When the top of the next item hits the top of the viewport
+                        scrub: true,
+                    },
+                });
+            });
+        },
+        { scope: container }
     );
 
     // Filter only top 4 projects
@@ -51,7 +71,7 @@ export function FeaturedProjects() {
                     return (
                         <div
                             key={project.id}
-                            className="featured-item sticky top-0 w-full min-h-screen flex flex-col justify-center overflow-hidden"
+                            className="featured-item sticky top-0 w-full min-h-screen flex flex-col justify-center overflow-hidden origin-top"
                         >
                             {/* Background Image - Full Screen but treated as "Mockup" background */}
                             <div className="absolute inset-0 z-0 w-full h-full">

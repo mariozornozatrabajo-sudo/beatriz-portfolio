@@ -1,10 +1,9 @@
 "use client";
 
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useRef, useState } from "react";
+import { GlitchText } from "./GlitchText";
 
 export function Nav() {
     const container = useRef<HTMLElement>(null);
@@ -12,21 +11,6 @@ export function Nav() {
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
-    useGSAP(
-        () => {
-            // Animation logic transferred from Home page
-            // We ensure the animation logic matches what was in Home's useGSAP
-            const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-            tl.from(".nav-anim", {
-                y: -20,
-                opacity: 0,
-                stagger: 0.1,
-                duration: 0.8
-            });
-        },
-        { scope: container }
-    );
 
     return (
         <header
@@ -42,10 +26,10 @@ export function Nav() {
                 {["About", "Works", "Contact"].map((item) => (
                     <Link
                         key={item}
-                        href={item === "Works" ? "/works" : `/#${item.toLowerCase()}`}
+                        href={item === "Works" ? "/works" : item === "About" ? "/about" : `/#${item.toLowerCase()}`}
                         className="hover:text-[var(--beatriz-yellow)] block"
                     >
-                        {item}
+                        <GlitchText text={item} />
                     </Link>
                 ))}
             </nav>
@@ -64,11 +48,11 @@ export function Nav() {
                     {["About", "Works", "Contact"].map((item) => (
                         <Link
                             key={item}
-                            href={item === "Works" ? "/works" : `/#${item.toLowerCase()}`}
+                            href={item === "Works" ? "/works" : item === "About" ? "/about" : `/#${item.toLowerCase()}`}
                             onClick={() => setIsMenuOpen(false)}
                             className="hover:text-[var(--beatriz-yellow)] block text-[var(--beatriz-blue)] font-bold font-mono"
                         >
-                            {item}
+                            <GlitchText text={item} />
                         </Link>
                     ))}
                 </div>

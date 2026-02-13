@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { FeaturedProjects } from "@/components/FeaturedProjects";
 import { ScrollSection } from "@/components/ScrollSection";
 import { GlitchButton } from "@/components/GlitchButton";
+import { GlitchText } from "@/components/GlitchText";
 import { Footer } from "@/components/Footer";
 import { ArrowDown } from "lucide-react";
 
@@ -35,24 +36,7 @@ export default function Home() {
         videoRef.current.play().catch(e => console.error("Video play failed", e));
       }
 
-      tl.from(".hero-anim", {
-        y: 50,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.1,
-      })
-        .from(".nav-anim", {
-          y: -20,
-          opacity: 0,
-          stagger: 0.1,
-          duration: 0.8
-        }, "-=0.5")
-        .from(".footer-anim", {
-          y: 20,
-          opacity: 0,
-          stagger: 0.1,
-          duration: 0.8
-        }, "-=0.8");
+      // Removing 'from' animations as requested
     },
     { scope: container }
   );
@@ -83,8 +67,9 @@ export default function Home() {
         <div className="flex flex-col justify-center min-h-screen px-6 md:px-10 py-20 relative">
           <div className="space-y-2 md:space-y-4 max-w-full w-fit mt-20">
             {/* Title */}
-            <h1 className="hero-anim font-semibold text-6xl md:text-8xl lg:text-[120px] leading-none text-[var(--beatriz-yellow)] mix-blend-exclusion tracking-tighter">
-              Beatriz<br />Montes
+            <h1 className="hero-anim font-semibold text-6xl md:text-8xl lg:text-[120px] leading-none text-[var(--beatriz-yellow)] mix-blend-exclusion tracking-tighter flex flex-col items-start">
+              <GlitchText text="Beatriz" triggerOnLoad />
+              <GlitchText text="Montes" triggerOnLoad />
             </h1>
 
             {/* Description */}

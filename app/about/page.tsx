@@ -45,8 +45,24 @@ export default function AboutPage() {
         loadImages();
     }, []);
 
+    // Customize Lenis scroll behavior for this page
+    useEffect(() => {
+        if (!lenis) return;
+
+        // Slower scroll for About page
+        const originalDuration = lenis.options.duration;
+        lenis.options.duration = 3.0; // Slower than default 1.5
+
+        return () => {
+            if (lenis && lenis.options) {
+                lenis.options.duration = originalDuration;
+            }
+        };
+    }, [lenis]);
+
     useGSAP(
         () => {
+            // ... existing canvas render code ...
             if (!imagesLoaded || !canvasRef.current) return;
 
             const canvas = canvasRef.current;
@@ -61,9 +77,6 @@ export default function AboutPage() {
                 if (img) {
                     // Calculate contained aspect ratio
                     const scale = Math.max(canvas.width / img.width, canvas.height / img.height);
-                    // Scale to cover or contain? User said "continuous animation... when scrolled".
-                    // Usually covering the container or canvas size is best.
-                    // Let's draw it to fill the canvas.
                     context.clearRect(0, 0, canvas.width, canvas.height);
                     context.drawImage(img, 0, 0, canvas.width, canvas.height);
                 }
@@ -79,14 +92,25 @@ export default function AboutPage() {
                 start: "top top",
                 end: "bottom bottom",
                 scrub: 0.5, // smooth scrubbing
-                // pin: ".canvas-container", // Removed to rely on CSS sticky for cleaner layout integration
                 onUpdate: (self) => {
                     const frame = Math.round(self.progress * (frameCount - 1));
                     render(frame);
                 }
             });
 
-            // We can also animate the frameObj if we want to use gsap.to logic, but direct onUpdate is often simpler for pure scrubbing
+            // Fade in right column on first scroll
+            gsap.fromTo(".canvas-container",
+                { opacity: 0 },
+                {
+                    opacity: 1,
+                    scrollTrigger: {
+                        trigger: ".content-section",
+                        start: "top top", // Start fading as soon as scroll starts
+                        end: "top+=200", // Valid CSS value for end
+                        scrub: true,
+                    }
+                }
+            );
         },
         { scope: container, dependencies: [imagesLoaded] }
     );
@@ -95,7 +119,7 @@ export default function AboutPage() {
         // Scroll to the second "screen" of the left column or just down a bit? 
         // Let's scroll to the first paragraph container.
         lenis?.scrollTo("#bio-text", {
-            duration: 1.5,
+            duration: 2.5, // Match slower scroll
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         });
     };
@@ -195,7 +219,7 @@ export default function AboutPage() {
                 {/* Right Column: Image Sequence (Sticky) */}
                 {/* It needs to be sticky relative to the main container. 
                     If the main container grows with content, this stays sticky. */}
-                <div className="w-1/2 h-screen sticky top-0 right-0 flex items-center justify-center overflow-hidden canvas-container">
+                <div className="w-1/2 h-screen sticky top-0 right-0 flex items-center justify-center overflow-hidden canvas-container opacity-0">
                     <canvas
                         ref={canvasRef}
                         className="w-full h-full object-contain mix-blend-multiply"

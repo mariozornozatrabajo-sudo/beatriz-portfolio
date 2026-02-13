@@ -10,6 +10,7 @@ export interface Project {
     featured: boolean;
     gallery?: string[]; // Array of image URLs for the hover loop
     roles?: string[]; // New field for roles
+    technicalDetails?: { label: string; value: string }[]; // New field for technical sheet
 }
 
 export const projects: Project[] = [
@@ -69,5 +70,12 @@ export const projects: Project[] = [
         gallery: ["/img-proyectos/nudo-editorial.png", "/img-proyectos/memories-motion.png", "/img-proyectos/teatrocanal-identidad.jpg"], // Placeholders
         roles: ["Diseñadora", "Maquetadora"],
         featured: true,
+        technicalDetails: [
+            { label: "Formato", value: "A4 apaisado" },
+            { label: "Retícula", value: "6 columnas x 4 filas" },
+            { label: "Tipografía", value: "Editorial New / Neue Haas Grotesk" },
+            { label: "Impresión", value: "Digital sobre papel Munken Lynx" },
+            { label: "Año", value: "2024" }
+        ]
     },
 ];

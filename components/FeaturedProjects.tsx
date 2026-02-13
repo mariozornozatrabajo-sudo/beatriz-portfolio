@@ -7,6 +7,7 @@ import Link from "next/link";
 import { projects } from "@/data/projects";
 import { GlitchButton } from "./GlitchButton";
 import { GlitchText } from "./GlitchText";
+import { StyledText } from "./StyledText";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -57,7 +58,7 @@ export function FeaturedProjects() {
         <section
             id="works"
             ref={container}
-            className="relative w-full bg-[var(--background)]"
+            className="relative w-full"
         >
             <div>
                 {featuredProjects.map((project, index) => {
@@ -99,34 +100,50 @@ export function FeaturedProjects() {
                                             {/* Category & Title */}
                                             <div className="flex flex-col gap-1 items-start w-full">
                                                 {/* Category: 20px Cascadia Code */}
-                                                <p className="reveal-text font-mono text-[16px] md:text-[20px] text-[var(--beatriz-yellow)] mix-blend-exclusion">
+                                                <StyledText
+                                                    as="p"
+                                                    className="reveal-text font-mono text-[16px] md:text-[20px]"
+                                                    blendMode="mix-blend-difference" // Explicitly use difference for stronger negative effect
+                                                >
                                                     {project.category}
-                                                </p>
+                                                </StyledText>
 
                                                 {/* Title: 96px Fractul Variable SemiBold, Leading 90px */}
-                                                <h2 className="reveal-text font-heading font-semibold text-[60px] md:text-[96px] leading-[0.9] md:leading-[90px] text-[var(--beatriz-blue)] mix-blend-exclusion capitalize">
+                                                <StyledText
+                                                    as="h2"
+                                                    blendMode="mix-blend-difference" // Explicitly use difference for stronger negative effect
+                                                    className="reveal-text font-heading font-semibold text-[60px] md:text-[96px] leading-[0.9] md:leading-[90px] capitalize"
+                                                >
                                                     {project.title}
-                                                </h2>
+                                                </StyledText>
                                             </div>
 
                                             {/* Description: 16px Cascadia Code, max-w-[600px] */}
-                                            <p className="reveal-text font-mono text-[14px] md:text-[16px] text-white mix-blend-exclusion max-w-[600px] leading-normal">
+                                            <StyledText
+                                                as="p"
+                                                color="text-white"
+                                                blendMode="mix-blend-difference" // Explicitly use difference for stronger negative effect
+                                                className="reveal-text font-mono text-[14px] md:text-[16px] max-w-[600px] leading-normal"
+                                            >
                                                 {project.description}
-                                            </p>
+                                            </StyledText>
                                         </div>
 
                                         {/* Link: Positioned at bottom of 613px container via justify-between */}
                                         <div
-                                            className="reveal-text flex justify-start mix-blend-exclusion" /* Apply mix-blend-exclusion to wrapper too */
+                                            className="reveal-text flex justify-start mix-blend-exclusion mb-10" /* Apply mix-blend-exclusion to wrapper too */
                                             onMouseEnter={() => setHoveredProjectId(project.id)}
                                             onMouseLeave={() => setHoveredProjectId(null)}
                                         >
-                                            <Link
+                                            <StyledText
+                                                as={Link}
                                                 href={`/works/${project.id}`}
-                                                className="font-mono text-[20px] md:text-[24px] text-white mix-blend-exclusion underline decoration-solid underline-offset-4 hover:text-[var(--beatriz-yellow)] transition-colors"
+                                                color="text-white"
+                                                blendMode="mix-blend-difference" // Explicitly use difference for stronger negative effect
+                                                className="font-mono text-[20px] md:text-[24px] underline decoration-solid underline-offset-4 hover:text-[var(--beatriz-yellow)] transition-colors"
                                             >
                                                 <GlitchText text="[Leer +]" />
-                                            </Link>
+                                            </StyledText>
                                         </div>
                                     </div>
                                 </div>

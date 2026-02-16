@@ -7,6 +7,7 @@ import { ScrollSection } from "@/components/ScrollSection";
 import { GlitchButton } from "@/components/GlitchButton";
 import { GlitchText } from "@/components/GlitchText";
 import { Footer } from "@/components/Footer";
+import { PreFooter } from "@/components/PreFooter";
 import { ArrowDown } from "lucide-react";
 
 import { useRef } from "react";
@@ -99,6 +100,7 @@ export default function Home() {
       </main>
       <ScrollSection />
       <FeaturedProjects />
+      <PreFooter />
     </>
   );
 }

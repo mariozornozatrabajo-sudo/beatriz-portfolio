@@ -3,8 +3,8 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
-import { GlitchText } from "./GlitchText";
 import { useRef, useState } from "react";
+import { GlitchText } from "./GlitchText";
 
 const categoryImages: Record<string, string> = {
     "Editorial": "/img-proyectos/eternoretorno-editorial.png",
@@ -13,7 +13,7 @@ const categoryImages: Record<string, string> = {
     "Visual Identity": "/img-proyectos/teatrocanal-identidad.jpg"
 };
 
-export function Footer() {
+export function SiteFooter() {
     const container = useRef<HTMLElement>(null);
     const imageRef = useRef<HTMLDivElement>(null);
     const activeCategory = useRef<string | null>(null);
@@ -81,7 +81,7 @@ export function Footer() {
         }
     });
 
-    const handleMouseLeave = contextSafe((category: string, e: React.MouseEvent) => {
+    const handleMouseLeave = contextSafe(() => {
         activeCategory.current = null;
         if (imageRef.current) {
             gsap.to(imageRef.current, {
@@ -96,7 +96,11 @@ export function Footer() {
     });
 
     return (
-        <>
+        <footer
+            ref={container}
+            onMouseMove={moveImage}
+            className="w-full bg-[#041abe] flex flex-col pt-10 relative z-40"
+        >
             {/* Floating Image Container */}
             <div
                 ref={imageRef}
@@ -111,36 +115,55 @@ export function Footer() {
                 />
             </div>
 
-            <footer
-                ref={container}
-                onMouseMove={moveImage}
-                className="absolute bottom-0 left-0 w-full bg-[var(--beatriz-gray)] py-4 px-6 md:px-10 grid grid-cols-2 md:flex md:justify-between gap-4 text-xs md:text-sm z-20 border-t border-black/5 text-[var(--beatriz-blue)]"
-            >
+            {/* Top Row: Categories */}
+            <div className="w-full flex flex-wrap justify-between items-center px-6 md:px-12 pb-6 text-[#dde904] font-mono text-lg md:text-[20px] underline decoration-solid">
                 <GlitchText
                     text="Editorial"
                     onMouseEnter={(e) => handleMouseEnter("Editorial", e)}
                     onMouseLeave={handleMouseLeave}
-                    className="relative z-50 text-center md:text-left cursor-pointer hover:font-bold transition-all text-[var(--beatriz-blue)] underline decoration-solid"
+                    className="cursor-pointer hover:opacity-80 transition-opacity"
                 />
                 <GlitchText
                     text="Motion graphics"
                     onMouseEnter={(e) => handleMouseEnter("Motion Graphics", e)}
                     onMouseLeave={handleMouseLeave}
-                    className="relative z-50 text-center cursor-pointer hover:font-bold transition-all text-[var(--beatriz-blue)] underline decoration-solid"
+                    className="cursor-pointer hover:opacity-80 transition-opacity"
                 />
                 <GlitchText
-                    text="Ilustrations"
+                    text="Illustrations"
                     onMouseEnter={(e) => handleMouseEnter("Illustrations", e)}
                     onMouseLeave={handleMouseLeave}
-                    className="relative z-50 text-center cursor-pointer hover:font-bold transition-all text-[var(--beatriz-blue)] underline decoration-solid"
+                    className="cursor-pointer hover:opacity-80 transition-opacity"
                 />
                 <GlitchText
                     text="Visual identity"
                     onMouseEnter={(e) => handleMouseEnter("Visual Identity", e)}
                     onMouseLeave={handleMouseLeave}
-                    className="relative z-50 text-center md:text-right cursor-pointer hover:font-bold transition-all text-[var(--beatriz-blue)] underline decoration-solid"
+                    className="cursor-pointer hover:opacity-80 transition-opacity"
                 />
-            </footer>
-        </>
+            </div>
+
+            {/* Bottom Row: Yellow Bar */}
+            <div className="w-full bg-[#dde904] text-[#041abe] font-mono !text-[14px] [&_a]:!text-[14px] [&_p]:!text-[14px] py-6 px-6 md:px-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 md:gap-0">
+                {/* Left: Message */}
+                <div className="flex flex-col">
+                    <p className="mb-2">Me cago en vuestra puta vida, contratadme</p>
+                    <p>:)</p>
+                </div>
+
+                {/* Center: Socials */}
+                <div className="flex gap-8">
+                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:underline">LinkedIn</a>
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:underline">Instagram</a>
+                    <a href="https://behance.net" target="_blank" rel="noopener noreferrer" className="hover:underline">Behance</a>
+                </div>
+
+                {/* Right: Contact */}
+                <div className="flex flex-col md:items-end text-right">
+                    <p>+34 625 22 66 11</p>
+                    <a href="mailto:hola@beatrizmontes.es" className="hover:underline">hola@beatrizmontes.es</a>
+                </div>
+            </div>
+        </footer>
     );
 }

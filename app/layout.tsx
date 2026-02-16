@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Cascadia_Code } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
-import { Contact } from "@/components/Contact";
+import { SiteFooter } from "@/components/SiteFooter";
 import { Nav } from "@/components/Nav";
+import { NavProvider } from "@/context/NavContext";
 
 const cascadiaCode = Cascadia_Code({
   variable: "--font-cascadia-code",
@@ -28,11 +29,13 @@ export default function RootLayout({
       <body
         className={`${cascadiaCode.variable} antialiased`}
       >
-        <SmoothScroll>
-          <Nav />
-          {children}
-          <Contact />
-        </SmoothScroll>
+        <NavProvider>
+          <SmoothScroll>
+            <Nav />
+            {children}
+            <SiteFooter />
+          </SmoothScroll>
+        </NavProvider>
       </body>
     </html>
   );

@@ -1,13 +1,14 @@
-"use client";
-
+import Link from "next/link";
 import { useRef, useState } from "react";
 
 interface GlitchButtonProps {
     text?: string;
     onClick?: () => void;
+    href?: string;
+    className?: string;
 }
 
-export function GlitchButton({ text = "Hablemos!", onClick }: GlitchButtonProps) {
+export function GlitchButton({ text = "Hablemos!", onClick, href, className = "" }: GlitchButtonProps) {
     const [displayText, setDisplayText] = useState(text);
     const originalText = text;
     // Use the characters from the text itself for the scramble effect
@@ -57,14 +58,31 @@ export function GlitchButton({ text = "Hablemos!", onClick }: GlitchButtonProps)
         setDisplayText(originalText);
     };
 
+    const commonClasses = `bg-[var(--beatriz-yellow)] text-[var(--beatriz-blue)] px-1 py-0 text-sm md:text-base cursor-pointer font-normal tracking-wide font-mono w-fit relative inline-flex items-center justify-center overflow-hidden ${className}`;
+
+    if (href) {
+        return (
+            <Link
+                href={href}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                className={commonClasses}
+            >
+                <span className="opacity-0">{originalText}</span>
+                <span className="absolute inset-0 flex items-center justify-center">{displayText}</span>
+            </Link>
+        );
+    }
+
     return (
         <button
             onClick={onClick}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            className="bg-[var(--beatriz-yellow)] text-[var(--beatriz-blue)] px-1 py-0 text-sm md:text-base cursor-pointer font-normal tracking-wide font-mono w-fit"
+            className={commonClasses}
         >
-            {displayText}
+            <span className="opacity-0">{originalText}</span>
+            <span className="absolute inset-0 flex items-center justify-center">{displayText}</span>
         </button>
     );
 }

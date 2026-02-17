@@ -81,7 +81,7 @@ export function Footer() {
         }
     });
 
-    const handleMouseLeave = contextSafe((category: string, e: React.MouseEvent) => {
+    const handleMouseLeave = contextSafe(() => {
         activeCategory.current = null;
         if (imageRef.current) {
             gsap.to(imageRef.current, {

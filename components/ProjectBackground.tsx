@@ -1,51 +1,62 @@
 import Image from "next/image";
 
 interface ProjectBackgroundProps {
-    img1: string;
-    img2: string;
-    img3: string;
+    images: string[];
 }
 
-export function ProjectBackground({ img1, img2, img3 }: ProjectBackgroundProps) {
+const MediaRender = ({ src, alt, className, priority, objectFit = "object-cover" }: { src: string, alt: string, className?: string, priority?: boolean, objectFit?: string }) => {
+    if (src.endsWith('.mp4')) {
+        return (
+            <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className={`absolute inset-0 w-full h-full ${objectFit} ${className || ""}`}
+            >
+                <source src={src} type="video/mp4" />
+            </video>
+        );
+    }
     return (
-        <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
+        <Image
+            src={src}
+            alt={alt}
+            fill
+            className={`${objectFit} ${className || ""}`}
+            priority={priority}
+        />
+    );
+};
 
-            {/* Image 1: Top Hero */}
-            <div className="absolute top-0 left-0 w-full h-[120vh]">
-                <div className="relative w-full h-full">
-                    <Image
-                        src={img1}
-                        alt="Project background 1"
-                        fill
-                        className="object-cover opacity-80"
-                        priority
-                    />
-                </div>
-            </div>
+export function ProjectBackground({ images }: ProjectBackgroundProps) {
+    if (!images || images.length === 0) return null;
 
-            {/* Image 2: Middle Section - User requested full width */}
-            <div className="absolute top-[120vh] left-0 w-full h-[120vh]">
-                <div className="relative w-full h-full">
-                    <Image
-                        src={img2}
-                        alt="Project background 2"
-                        fill
-                        className="object-cover"
-                    />
-                </div>
-            </div>
+    return (
+        <div className="absolute inset-0 w-full z-0 pointer-events-none flex flex-col">
+            {images.map((src, index) => {
+                const isFirst = index === 0;
+                const isLast = index === images.length - 1;
+                
+                // Keep the first item similar to before (h-[120vh] to overlap under the upcoming content)
+                // Middle items also get 120vh, last gets min-h-screen.
+                const heightClass = isFirst ? "h-[120vh]" : isLast ? "h-[100vh]" : "h-[120vh]";
 
-            {/* Image 3: Bottom Section - User requested full width */}
-            <div className="absolute top-[240vh] left-0 w-full h-[100vh]">
-                <div className="relative w-full h-full">
-                    <Image
-                        src={img3}
-                        alt="Project background 3"
-                        fill
-                        className="object-cover"
-                    />
-                </div>
-            </div>
+                return (
+                    <div 
+                        key={index} 
+                        className={`relative w-full shrink-0 ${heightClass}`}
+                    >
+                        <MediaRender 
+                            src={src} 
+                            alt={`Project background ${index + 1}`} 
+                            className={isFirst ? "opacity-80 object-cover" : "object-contain py-10"} 
+                            priority={isFirst} 
+                            objectFit={isFirst ? "object-cover" : "object-contain"}
+                        />
+                    </div>
+                );
+            })}
         </div>
     );
 }

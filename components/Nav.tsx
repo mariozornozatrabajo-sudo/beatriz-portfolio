@@ -28,15 +28,18 @@ export function Nav() {
             {/* Desktop Nav */}
             <nav className={`nav-anim hidden md:flex gap-12 pointer-events-auto font-mono transition-colors duration-300 ${isDefault ? "bg-[var(--beatriz-blue)] text-white mix-blend-difference" : "bg-[var(--beatriz-yellow)] text-[var(--beatriz-blue)]"
                 }`}>
-                {["About", "Works", "Contact"].map((item) => (
-                    <Link
-                        key={item}
-                        href={item === "Works" ? "/works" : item === "About" ? "/about" : `/#${item.toLowerCase()}`}
-                        className="block hover:opacity-75 transition-opacity"
-                    >
-                        <GlitchText text={item} />
-                    </Link>
-                ))}
+                {["About", "Works", "Contact"].map((item) => {
+                    const href = item === "Works" ? "/works" : item === "About" ? "/about" : "/contact";
+                    return (
+                        <Link
+                            key={item}
+                            href={href}
+                            className="block hover:opacity-75 transition-opacity"
+                        >
+                            <GlitchText text={item} />
+                        </Link>
+                    )
+                })}
             </nav>
 
             {/* Mobile Menu Button */}
@@ -51,16 +54,19 @@ export function Nav() {
             {/* Mobile Menu Overlay */}
             {isMenuOpen && (
                 <div className="fixed inset-0 bg-[var(--beatriz-gray)] z-40 flex flex-col items-center justify-center gap-8 text-3xl pointer-events-auto">
-                    {["About", "Works", "Contact"].map((item) => (
-                        <Link
-                            key={item}
-                            href={item === "Works" ? "/works" : item === "About" ? "/about" : `/#${item.toLowerCase()}`}
-                            onClick={() => setIsMenuOpen(false)}
-                            className="hover:text-[var(--beatriz-yellow)] block text-[var(--beatriz-blue)] font-bold font-mono"
-                        >
-                            <GlitchText text={item} />
-                        </Link>
-                    ))}
+                    {["About", "Works", "Contact"].map((item) => {
+                        const href = item === "Works" ? "/works" : item === "About" ? "/about" : "/contact";
+                        return (
+                            <Link
+                                key={item}
+                                href={href}
+                                onClick={() => setIsMenuOpen(false)}
+                                className="hover:text-[var(--beatriz-yellow)] block text-[var(--beatriz-blue)] font-bold font-mono"
+                            >
+                                <GlitchText text={item} />
+                            </Link>
+                        )
+                    })}
                 </div>
             )}
         </header>

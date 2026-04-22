@@ -1,7 +1,6 @@
 "use client";
 
 import { Works } from "@/components/Works";
-import { Footer } from "@/components/Footer";
 import Link from "next/link";
 
 
@@ -14,8 +13,6 @@ export default function WorksPage() {
 
 
             <Works showTitle={true} showFilters={true} showViewAllButton={false} />
-
-            <Footer />
         </main>
     );
 }

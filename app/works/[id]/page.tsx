@@ -75,44 +75,45 @@ export default function ProjectPage() {
 
     if (!project) return null;
 
-    // Placeholder images setup
-    const img1 = project.image || "/projectimgs/placeholder.png";
-    const img2 = project.gallery?.[0] || "/projectimgs/placeholder.png";
-    const img3 = project.gallery?.[1] || "/projectimgs/placeholder.png";
+    // Background Images setup
+    const defaultGallery = project.gallery && project.gallery.length > 0 
+        ? project.gallery 
+        : ["/projectimgs/placeholder.png", "/projectimgs/placeholder.png"];
+    
+    let imagesToRender = [project.image || "/projectimgs/placeholder.png", ...defaultGallery];
+    
+    if (projectId === 5) {
+        imagesToRender = [
+            "/projectimgs/otras-mentes/coleccion-pulpos.png",
+            "/projectimgs/otras-mentes/mockup-landscape.png",
+            "/projectimgs/otras-mentes/mockup-portrait.png"
+        ];
+    }
+
+    const totalHeightVh = (imagesToRender.length - 1) * 120 + 100;
 
     return (
         <main
             ref={container}
-            className="relative min-h-[300vh] w-full font-mono selection:bg-[var(--beatriz-yellow)] selection:text-black bg-[var(--background)]"
+            className="relative w-full font-mono selection:bg-[var(--beatriz-yellow)] selection:text-black bg-[var(--background)]"
+            style={{ minHeight: `${totalHeightVh}vh` }}
         >
 
             {/* Main Project Wrapper: Contains Background + Sticky Content */}
             {/* Animating this wrapper preserves the mix-blend-mode relationship inside */}
             {/* Added bg-[var(--background)] to provide a solid backdrop for blend modes */}
-            <div className="project-main-wrapper relative w-full min-h-[300vh] origin-bottom bg-[var(--background)]">
+            <div className="project-main-wrapper relative w-full origin-bottom bg-[var(--background)]" style={{ minHeight: `${totalHeightVh}vh` }}>
 
                 {/* Scrollable Background Images Layer */}
                 {/* Reverted to absolute so it scrolls with the container */}
                 <div className="project-background-layer absolute inset-0 w-full h-full">
-                    {projectId === 5 ? (
-                        <ProjectBackground
-                            img1="/projectimgs/otras-mentes/coleccion-pulpos.png"
-                            img2="/projectimgs/otras-mentes/mockup-landscape.png"
-                            img3="/projectimgs/otras-mentes/mockup-portrait.png"
-                        />
-                    ) : (
-                        <ProjectBackground
-                            img1={img1}
-                            img2={img2}
-                            img3={img3}
-                        />
-                    )}
+                    <ProjectBackground images={imagesToRender} />
                 </div>
 
                 {/* Content Overlay: Sticky Columns */}
                 {/* REMOVED z-10 to prevent stacking context isolation, allowing blend mode to work with background */}
-                <div className="content-overlay-layer relative w-full max-w-[1512px] mx-auto min-h-[300vh] pointer-events-none">
-                    <div className="grid grid-cols-1 md:grid-cols-2 h-[300vh] grid-exit-trigger">
+                <div className="content-overlay-layer relative w-full max-w-[1512px] mx-auto pointer-events-none" style={{ minHeight: `${totalHeightVh}vh` }}>
+                    <div className="grid grid-cols-1 md:grid-cols-2 grid-exit-trigger" style={{ height: `${totalHeightVh}vh` }}>
 
                         {/* Left Column - Sticky */}
                         <div className="relative flex flex-col justify-between h-full pointer-events-none">

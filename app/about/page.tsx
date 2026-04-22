@@ -6,7 +6,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef, useEffect, useState } from "react";
 import { ArrowDown } from "lucide-react";
 import { useLenis } from "lenis/react";
-import { Footer } from "@/components/Footer";
 import { GlitchText } from "@/components/GlitchText";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -129,18 +128,6 @@ export default function AboutPage() {
             ref={container}
             className="relative w-full text-[var(--beatriz-blue)] font-mono selection:bg-[var(--beatriz-yellow)] selection:text-[var(--beatriz-blue)]"
         >
-            {/* Fixed Background Video */}
-            <div className="fixed inset-0 z-0">
-                <video
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="w-full h-full object-cover opacity-50 mix-blend-multiply filter grayscale contrast-125"
-                >
-                    <source src="/bg-about.mp4" type="video/mp4" />
-                </video>
-            </div>
 
             {/* Main Content Section (Unified) */}
             <section className="content-section relative z-10 w-full flex items-start">
@@ -226,8 +213,6 @@ export default function AboutPage() {
                     />
                 </div>
             </section>
-
-            <Footer />
         </main>
     );
 }

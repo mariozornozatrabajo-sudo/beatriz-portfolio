@@ -152,19 +152,31 @@ export function Works({ showTitle = false, showFilters = false, showViewAllButto
                             <Link
                                 key={project.id}
                                 href={`/works/${project.id}`}
-                                className={`project-card flex flex-col group transition-all duration-500 will-change-transform ${isRightColumn ? "md:mt-32" : ""} ${isBlurred ? "blur-sm grayscale opacity-60 scale-95" : "opacity-100 scale-100"}`}
+                                className={`project-card flex flex-col self-start h-fit w-full group transition-all duration-500 will-change-transform ${isRightColumn ? "md:mt-32" : ""} ${isBlurred ? "blur-sm grayscale opacity-60 scale-95" : "opacity-100 scale-100"}`}
                                 onMouseEnter={() => setHoveredProject(project.id)}
                                 onMouseLeave={() => setHoveredProject(null)}
                             >
                                 {/* Image Container */}
                                 <div className={`relative w-full ${project.aspect} overflow-hidden`}>
-                                    <Image
-                                        src={project.image}
-                                        alt={project.title}
-                                        fill
-                                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                                        sizes="(max-width: 768px) 100vw, 50vw"
-                                    />
+                                    {project.image.endsWith('.mp4') ? (
+                                        <video
+                                            autoPlay
+                                            muted
+                                            loop
+                                            playsInline
+                                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                                        >
+                                            <source src={project.image} type="video/mp4" />
+                                        </video>
+                                    ) : (
+                                        <Image
+                                            src={project.image}
+                                            alt={project.title}
+                                            fill
+                                            className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                                            sizes="(max-width: 768px) 100vw, 50vw"
+                                        />
+                                    )}
                                     {/* Overlay for hover interaction hint */}
                                     <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300 bg-black mix-blend-overlay" />
                                 </div>

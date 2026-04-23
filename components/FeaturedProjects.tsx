@@ -9,6 +9,32 @@ import { GlitchButton } from "./GlitchButton";
 import { GlitchText } from "./GlitchText";
 import { StyledText } from "./StyledText";
 
+const MediaRender = ({ src, alt, className, priority }: { src: string, alt: string, className?: string, priority?: boolean }) => {
+    if (src.endsWith('.mp4')) {
+        return (
+            <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className={`absolute inset-0 w-full h-full object-cover ${className || ""}`}
+            >
+                <source src={src} type="video/mp4" />
+            </video>
+        );
+    }
+    return (
+        <Image
+            src={src}
+            alt={alt}
+            fill
+            className={`object-cover ${className || ""}`}
+            priority={priority}
+            sizes="100vw"
+        />
+    );
+};
+
 gsap.registerPlugin(ScrollTrigger);
 
 export function FeaturedProjects() {
@@ -77,12 +103,9 @@ export function FeaturedProjects() {
                             {/* Background Image - Full Screen but treated as "Mockup" background */}
                             <div className="absolute inset-0 z-0 w-full h-full">
                                 <div className="featured-img-container relative w-full h-full">
-                                    <Image
+                                    <MediaRender
                                         src={project.image}
                                         alt={project.title}
-                                        fill
-                                        className="object-cover" // Full opacity for mix-blend to work best
-                                        sizes="100vw"
                                         priority={index === 0}
                                     />
                                     {/* Overlay removed for mix-blend-exclusion effect */}
@@ -153,12 +176,11 @@ export function FeaturedProjects() {
                                 <div className={`col-span-12 lg:col-span-6 hidden lg:flex flex-col justify-center items-end h-full pointer-events-none`}>
                                     {hoveredProjectId === project.id && (
                                         <div className="w-full max-w-[800px] h-[500px] md:h-[600px] relative overflow-hidden rounded-lg animate-glitch-appear">
-                                            <Image
+                                            <MediaRender
                                                 key={galleryIndex} // Key triggers animation on image change
                                                 src={currentImage}
                                                 alt={`${project.title} gallery`}
-                                                fill
-                                                className="object-cover rounded-lg" // Removed fade-in to let the container glitch-in dominate, or keep for smooth slide
+                                                className="rounded-lg" // Removed fade-in to let the container glitch-in dominate, or keep for smooth slide
                                             />
                                         </div>
                                     )}

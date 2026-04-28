@@ -9,7 +9,7 @@ import { GlitchButton } from "@/components/GlitchButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export function PreFooter() {
+export function PreFooter({ hideWorksCta = false, hideAboutCta = false }: { hideWorksCta?: boolean, hideAboutCta?: boolean } = {}) {
     const container = useRef<HTMLDivElement>(null);
     const { setTheme } = useNavTheme();
 
@@ -40,20 +40,24 @@ export function PreFooter() {
                 {/* Column 1: CTAs (Spans 5 cols typically or based on Figma width 698px/1416px ~ 6 cols) */}
                 <div className="col-span-1 md:col-span-6 flex flex-col gap-[96px] items-start">
                     {/* Block 1 */}
-                    <div className="flex flex-col gap-8 items-start w-full">
-                        <h2 className="font-['Fractul_Variable'] font-semibold text-5xl md:text-[96px] leading-[0.9] text-[#dde904] capitalize mix-blend-exclusion">
-                            Si quieres ver más
-                        </h2>
-                        <GlitchButton href="/works" text="Ver todos los proyectos" className="text-lg md:text-[24px] px-2 py-1" />
-                    </div>
+                    {!hideWorksCta && (
+                        <div className="flex flex-col gap-8 items-start w-full">
+                            <h2 className="font-['Fractul_Variable'] font-semibold text-5xl md:text-[96px] leading-[0.9] text-[#dde904] capitalize mix-blend-exclusion">
+                                Si quieres ver más
+                            </h2>
+                            <GlitchButton href="/works" text="Ver todos los proyectos" className="text-lg md:text-[24px] px-2 py-1" />
+                        </div>
+                    )}
 
                     {/* Block 2 */}
-                    <div className="flex flex-col gap-8 items-start w-full">
-                        <h2 className="font-['Fractul_Variable'] font-semibold text-5xl md:text-[96px] leading-[0.9] text-[#dde904] capitalize mix-blend-exclusion">
-                            Si quieres saber más
-                        </h2>
-                        <GlitchButton href="/about" text="Ver más sobre mí" className="text-lg md:text-[24px] px-2 py-1" />
-                    </div>
+                    {!hideAboutCta && (
+                        <div className="flex flex-col gap-8 items-start w-full">
+                            <h2 className="font-['Fractul_Variable'] font-semibold text-5xl md:text-[96px] leading-[0.9] text-[#dde904] capitalize mix-blend-exclusion">
+                                Si quieres saber más
+                            </h2>
+                            <GlitchButton href="/about" text="Ver más sobre mí" className="text-lg md:text-[24px] px-2 py-1" />
+                        </div>
+                    )}
                 </div>
 
                 {/* Column 2: Image & Third CTA (Spans 6 cols) */}
@@ -78,7 +82,7 @@ export function PreFooter() {
                         <h2 className="font-['Fractul_Variable'] font-semibold text-5xl md:text-[96px] leading-[0.9] text-[#dde904] capitalize mix-blend-exclusion">
                             Si quieres hablar conmigo
                         </h2>
-                        <GlitchButton href="#contact" text="Descubramos como puedo ayudarte" className="text-lg md:text-[24px] px-2 py-1" />
+                        <GlitchButton href="/contact" text="Descubramos como puedo ayudarte" className="text-lg md:text-[24px] px-2 py-1" />
                     </div>
                 </div>
             </div>

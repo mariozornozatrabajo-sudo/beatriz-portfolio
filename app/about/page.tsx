@@ -7,6 +7,7 @@ import { useRef, useEffect, useState } from "react";
 import { ArrowDown } from "lucide-react";
 import { useLenis } from "lenis/react";
 import { GlitchText } from "@/components/GlitchText";
+import { PreFooter } from "@/components/PreFooter";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -124,6 +125,7 @@ export default function AboutPage() {
     };
 
     return (
+        <>
         <main
             ref={container}
             className="relative w-full text-[var(--beatriz-blue)] font-mono selection:bg-[var(--beatriz-yellow)] selection:text-[var(--beatriz-blue)]"
@@ -214,5 +216,7 @@ export default function AboutPage() {
                 </div>
             </section>
         </main>
+        <PreFooter hideAboutCta={true} />
+        </>
     );
 }

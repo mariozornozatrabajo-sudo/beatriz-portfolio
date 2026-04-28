@@ -193,9 +193,7 @@ export function FeaturedProjects() {
             </div>
 
             <div className="w-full flex justify-center py-20 bg-[var(--background)]">
-                <Link href="/works">
-                    <GlitchButton text="Ver todos los proyectos" />
-                </Link>
+                <GlitchButton href="/works" text="Ver todos los proyectos" />
             </div>
         </section>
     );

@@ -3,14 +3,15 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
+import Link from "next/link";
 import { GlitchText } from "./GlitchText";
 import { useRef, useState } from "react";
 
 const categoryImages: Record<string, string> = {
-    "Editorial": "/img-proyectos/eternoretorno-editorial.png",
-    "Motion Graphics": "/img-proyectos/memories-motion.png",
-    "Illustrations": "/img-proyectos/nudo-editorial.png",
-    "Visual Identity": "/img-proyectos/teatrocanal-identidad.jpg"
+    "Editorial": "/img-proyectos/eterno-retorno/eternoretorno-editorial.png",
+    "Motion Graphics": "/img-proyectos/memories/memories-motion.png",
+    "Illustrations": "/img-proyectos/nudo/nudo-editorial.png",
+    "Visual Identity": "/img-proyectos/teatro-canal/teatrocanal-web.png"
 };
 
 export function Footer() {
@@ -116,30 +117,38 @@ export function Footer() {
                 onMouseMove={moveImage}
                 className="absolute bottom-0 left-0 w-full bg-[var(--beatriz-gray)] py-4 px-6 md:px-10 grid grid-cols-2 md:flex md:justify-between gap-4 text-xs md:text-sm z-20 border-t border-black/5 text-[var(--beatriz-blue)]"
             >
-                <GlitchText
-                    text="Editorial"
-                    onMouseEnter={(e) => handleMouseEnter("Editorial", e)}
-                    onMouseLeave={handleMouseLeave}
-                    className="relative z-50 text-center md:text-left cursor-pointer hover:font-bold transition-all text-[var(--beatriz-blue)] underline decoration-solid"
-                />
-                <GlitchText
-                    text="Motion graphics"
-                    onMouseEnter={(e) => handleMouseEnter("Motion Graphics", e)}
-                    onMouseLeave={handleMouseLeave}
-                    className="relative z-50 text-center cursor-pointer hover:font-bold transition-all text-[var(--beatriz-blue)] underline decoration-solid"
-                />
-                <GlitchText
-                    text="Ilustrations"
-                    onMouseEnter={(e) => handleMouseEnter("Illustrations", e)}
-                    onMouseLeave={handleMouseLeave}
-                    className="relative z-50 text-center cursor-pointer hover:font-bold transition-all text-[var(--beatriz-blue)] underline decoration-solid"
-                />
-                <GlitchText
-                    text="Visual identity"
-                    onMouseEnter={(e) => handleMouseEnter("Visual Identity", e)}
-                    onMouseLeave={handleMouseLeave}
-                    className="relative z-50 text-center md:text-right cursor-pointer hover:font-bold transition-all text-[var(--beatriz-blue)] underline decoration-solid"
-                />
+                <Link href="/works">
+                    <GlitchText
+                        text="Editorial"
+                        onMouseEnter={(e) => handleMouseEnter("Editorial", e)}
+                        onMouseLeave={handleMouseLeave}
+                        className="relative z-50 text-center md:text-left cursor-pointer hover:font-bold transition-all text-[var(--beatriz-blue)] underline decoration-solid"
+                    />
+                </Link>
+                <Link href="/works">
+                    <GlitchText
+                        text="Motion graphics"
+                        onMouseEnter={(e) => handleMouseEnter("Motion Graphics", e)}
+                        onMouseLeave={handleMouseLeave}
+                        className="relative z-50 text-center cursor-pointer hover:font-bold transition-all text-[var(--beatriz-blue)] underline decoration-solid"
+                    />
+                </Link>
+                <Link href="/works">
+                    <GlitchText
+                        text="Ilustrations"
+                        onMouseEnter={(e) => handleMouseEnter("Illustrations", e)}
+                        onMouseLeave={handleMouseLeave}
+                        className="relative z-50 text-center cursor-pointer hover:font-bold transition-all text-[var(--beatriz-blue)] underline decoration-solid"
+                    />
+                </Link>
+                <Link href="/works">
+                    <GlitchText
+                        text="Visual identity"
+                        onMouseEnter={(e) => handleMouseEnter("Visual Identity", e)}
+                        onMouseLeave={handleMouseLeave}
+                        className="relative z-50 text-center md:text-right cursor-pointer hover:font-bold transition-all text-[var(--beatriz-blue)] underline decoration-solid"
+                    />
+                </Link>
             </footer>
         </>
     );

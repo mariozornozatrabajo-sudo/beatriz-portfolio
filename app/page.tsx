@@ -81,7 +81,7 @@ export default function Home() {
 
           {/* CTA Button */}
           <div className="hero-anim mt-6">
-            <GlitchButton text="Hablemos!" />
+            <GlitchButton href="/contact" text="Hablemos!" />
           </div>
         </div>
 

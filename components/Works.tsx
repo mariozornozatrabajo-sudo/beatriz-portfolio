@@ -199,9 +199,7 @@ export function Works({ showTitle = false, showFilters = false, showViewAllButto
                 {/* View All Projects CTA */}
                 {showViewAllButton && (
                     <div className="mt-32 w-full flex justify-center project-card opacity-0">
-                        <Link href="/works">
-                            <GlitchButton text="Ver todos los proyectos" />
-                        </Link>
+                        <GlitchButton href="/works" text="Ver todos los proyectos" />
                     </div>
                 )}
             </div>

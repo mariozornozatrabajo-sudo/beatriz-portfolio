@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { GlitchButton } from "./GlitchButton";
+import { GlitchText } from "./GlitchText";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -117,7 +118,7 @@ export function Works({ showTitle = false, showFilters = false, showViewAllButto
 
                 {/* Optional Title and Filters */}
                 {(showTitle || showFilters) && (
-                    <div className="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-8">
+                    <div className="mb-20 flex flex-col gap-8 md:gap-12">
                         {showTitle && (
                             <h2 className="font-heading text-5xl md:text-7xl leading-none">Proyectos</h2>
                         )}
@@ -128,12 +129,12 @@ export function Works({ showTitle = false, showFilters = false, showViewAllButto
                                     <button
                                         key={cat}
                                         onClick={() => setFilter(cat as Category | 'all')}
-                                        className={`font-mono text-sm uppercase tracking-wide transition-colors ${filter === cat
+                                        className={`font-mono text-sm uppercase tracking-wide transition-all duration-300 ${filter === cat
                                             ? "text-[var(--beatriz-blue)] font-bold decoration-2 underline underline-offset-4"
-                                            : "text-gray-500 hover:text-[var(--beatriz-blue)]"
+                                            : "text-gray-500 hover:text-[var(--beatriz-blue)] hover:opacity-75"
                                             }`}
                                     >
-                                        {cat}
+                                        <GlitchText text={cat} />
                                     </button>
                                 ))}
                             </div>

@@ -61,7 +61,8 @@ export const projects: Project[] = [
         category: "motion",
         image: "/img-proyectos/sinestesia/sinestesia.mp4",
         aspect: "aspect-square",
-        description: "",
+        description: "La propuesta para este proyecto consiste en el diseño, desarrollo de artes finales y producción de visuales audiovisuales para una colección presentada en la Fashion Week de Madrid, construidos en torno al concepto de dismorfia corporal trabajado por el diseñador.\n\nEl proyecto se articula mediante la creación de piezas visuales que exploran la fragmentación y distorsión del rostro, a través de la generación de ojos, bocas y caras utilizando técnicas de animación en After Effects, así como el modelado de un rostro 3D desarrollado a partir de las propias joyas del diseñador, adaptándolo a su universo estético. Los visuales reaccionan en tiempo real mediante Resolume, estableciendo un diálogo directo con el sonido: los bajos activan determinadas formas y comportamientos visuales, mientras que las frecuencias altas generan otras respuestas, reforzando así la sensación de inestabilidad y percepción alterada propia de la dismorfia corporal.",
+        roles: ["Diseñadora", "Audiovisuales"],
         gallery: [
             "/img-proyectos/sinestesia/video-fashion-week-01.mp4",
             "/img-proyectos/sinestesia/boca-en-movimiento.mp4",

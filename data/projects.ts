@@ -107,7 +107,8 @@ export const projects: Project[] = [
         category: "editorial",
         image: "/img-proyectos/jardin-botanico/jardin-botanico.jpg",
         aspect: "aspect-[3/4]",
-        description: "",
+        description: "Rediseño del folleto informativo e interactivo del Jardín Botánico de Madrid, dirigido a un público infantil y familiar. La propuesta combina fotografía de detalle e ilustraciones infantiles, junto a un formato guillotinado por apartados que facilita la navegación y convierte el folleto en una experiencia visual e interactiva.",
+        roles: ["Diseñadora", "Maquetadora"],
         gallery: [
             "/img-proyectos/jardin-botanico/chatgpt-image-1.png",
             "/img-proyectos/jardin-botanico/folleto-trans-003-2-1.png",

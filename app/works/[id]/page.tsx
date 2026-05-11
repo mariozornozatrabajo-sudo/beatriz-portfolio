@@ -81,14 +81,6 @@ export default function ProjectPage() {
         : ["/projectimgs/placeholder.png", "/projectimgs/placeholder.png"];
     
     let imagesToRender = [project.image || "/projectimgs/placeholder.png", ...defaultGallery];
-    
-    if (projectId === 5) {
-        imagesToRender = [
-            "/projectimgs/otras-mentes/coleccion-pulpos.png",
-            "/projectimgs/otras-mentes/mockup-landscape.png",
-            "/projectimgs/otras-mentes/mockup-portrait.png"
-        ];
-    }
 
     const totalHeightVh = (imagesToRender.length - 1) * 120 + 100;
 

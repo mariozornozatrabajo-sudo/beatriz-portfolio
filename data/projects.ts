@@ -41,7 +41,8 @@ export const projects: Project[] = [
         category: "motion",
         image: "/img-proyectos/carolina-durante/probablemente-tengas-razon.mp4",
         aspect: "aspect-[4/3]",
-        description: "Producción y postproducción de un videoclip para la canción Probablemente tengas razón de Carolina Durante.",
+        description: "Producción y postproducción de un videoclip para Probablemente tengas razón de Carolina Durante, trabajado a partir de rodaje con croma y una estética basada en la superposición de imágenes. La pieza combina planos detalle de los rostros de los cantantes con imágenes de instrumentos, utilizando el croma y planos picados para aportar ritmo, dinamismo y variedad visual.",
+        roles: ["Diseñadora", "Audiovisuales"],
         gallery: [
             "/img-proyectos/carolina-durante/probablemente-tengas-razon-01.mp4",
             "/img-proyectos/carolina-durante/probablemente-tengas-razon-02.mp4",

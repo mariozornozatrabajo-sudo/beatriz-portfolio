@@ -20,7 +20,7 @@ export const projects: Project[] = [
         category: "visual identity",
         image: "/img-proyectos/teatro-canal/teatrocanal-identidad.mp4",
         aspect: "aspect-[3/5]",
-        description: "Rediseño de la identidad visual de los Teatros del Canal de Madrid, adaptando su imagen a la diversidad de propuestas artísticas que alberga. La idea central fue asociar cada tipo de obra con un estado de la materia, usando el líquido como hilo conductor: lo experimental se vincula al estado gaseoso, lo neutro al estado líquido, y lo clásico al estado sólido, reflejando así la naturaleza y la energía de cada disciplina.\n\nEsta metáfora permite que la identidad sea flexible y reconocible al mismo tiempo, adaptándose visualmente según el tipo de contenido sin perder coherencia de marca.",
+        description: "Rediseño de la identidad visual de los Teatros del Canal de Madrid, planteando un sistema flexible que responde a la diversidad de propuestas artísticas del espacio. La identidad se construye a partir de la metáfora de los estados de la materia, permitiendo adaptar la imagen según el tipo de obra sin perder coherencia ni reconocimiento de marca.",
         gallery: [
             "/img-proyectos/teatro-canal/teatrocanal-instagram.png",
             "/img-proyectos/teatro-canal/teatrocanal-mobile.png",
@@ -62,7 +62,7 @@ export const projects: Project[] = [
         category: "motion",
         image: "/img-proyectos/sinestesia/sinestesia.mp4",
         aspect: "aspect-square",
-        description: "La propuesta para este proyecto consiste en el diseño, desarrollo de artes finales y producción de visuales audiovisuales para una colección presentada en la Fashion Week de Madrid, construidos en torno al concepto de dismorfia corporal trabajado por el diseñador.\n\nEl proyecto se articula mediante la creación de piezas visuales que exploran la fragmentación y distorsión del rostro, a través de la generación de ojos, bocas y caras utilizando técnicas de animación en After Effects, así como el modelado de un rostro 3D desarrollado a partir de las propias joyas del diseñador, adaptándolo a su universo estético. Los visuales reaccionan en tiempo real mediante Resolume, estableciendo un diálogo directo con el sonido: los bajos activan determinadas formas y comportamientos visuales, mientras que las frecuencias altas generan otras respuestas, reforzando así la sensación de inestabilidad y percepción alterada propia de la dismorfia corporal.",
+        description: "Diseño, desarrollo de artes finales y producción de visuales audiovisuales para una colección presentada en la Fashion Week de Madrid, vinculados al concepto de dismorfia corporal. El proyecto explora la fragmentación y distorsión del rostro mediante animaciones en After Effects, modelado 3D y visuales reactivos en Resolume, generando una experiencia visual inestable y conectada directamente con el sonido.",
         roles: ["Diseñadora", "Audiovisuales"],
         gallery: [
             "/img-proyectos/sinestesia/video-fashion-week-01.mp4",
@@ -83,7 +83,7 @@ export const projects: Project[] = [
         category: "editorial",
         image: "/img-proyectos/eterno-retorno/eternoretorno-editorial.png",
         aspect: "aspect-[3/4]",
-        description: "Propuesta de diseño editorial del libro Eterno Retorno: reflexiones sobre la cíclica naturaleza del tiempo y la existencia.",
+        description: "Diseño, desarrollo de artes finales y maquetación de un libro conceptual sobre el eterno retorno, entendido como una reflexión sobre la repetición de los errores humanos a lo largo de la historia. A través de la analogía con un error informático, el proyecto representa un ciclo de fallos, conflictos y reinicios que culmina en un “reset” final, devolviendo al lector al inicio y reforzando la idea de repetición infinita.",
         gallery: [
             "/img-proyectos/eterno-retorno/eterno-retorno-03-1.png",
             "/img-proyectos/eterno-retorno/eterno-retorno-04-1.png",
@@ -132,7 +132,7 @@ export const projects: Project[] = [
         category: "editorial",
         image: "/img-proyectos/otras-mentes/coleccion-pulpos-01-1.png",
         aspect: "aspect-[3/4]",
-        description: "Remaquetación editorial de Otras mentes (Peter Godfrey-Smith) como una versión más actual de la edición original.",
+        description: "Remaquetación editorial de Otras mentes de Peter Godfrey-Smith, planteada como una versión más actual de la edición original. El proyecto moderniza la organización del texto y la integración de imágenes, trabajando la jerarquía y la lectura a través de una retícula flexible de 6 columnas × 4 filas. El tratamiento visual con mapas de degradado unifica las imágenes y aporta un acabado más contemporáneo.",
         gallery: [
             "/img-proyectos/otras-mentes/mockup-portrait.png",
             "/img-proyectos/otras-mentes/mockup-001.png",
@@ -163,7 +163,7 @@ export const projects: Project[] = [
         category: "editorial",
         image: "/img-proyectos/cata-la-lata/cata-la-lata.png",
         aspect: "aspect-[4/3]",
-        description: "",
+        description: "Diseño de packaging para Cata la Lata 2024/25, orientado a renovar la imagen de las conservas con un lenguaje visual más contemporáneo, cercano y atractivo para un público joven. La propuesta convierte cada lata en una pieza con identidad propia, funcionando no solo como envase, sino también como elemento de comunicación y conexión con el comprador.",
         gallery: [
             "/img-proyectos/cata-la-lata/mockup-atunes-05-1.png",
             "/img-proyectos/cata-la-lata/mockup-mejis-01-1.png",
@@ -184,7 +184,7 @@ export const projects: Project[] = [
         category: "editorial",
         image: "/img-proyectos/nudo/nudo-017-1.png",
         aspect: "aspect-[4/3]",
-        description: "Proyecto editorial que desentraña las complejidades de las relaciones humanas a través de una narrativa visual entrelazada.",
+        description: "Creación de Nudo, un libro de ilustración que explora las pesadillas desde una mirada adulta. Cada pesadilla se personifica como un personaje abstracto y sintético, representando emociones como la ansiedad, las inseguridades o el duelo. El proyecto convierte estos miedos en arquetipos visuales reconocibles, desarrollados en Adobe Fresco y maquetados posteriormente en InDesign.",
         gallery: [
             "/img-proyectos/nudo/nudo-editorial.png",
             "/img-proyectos/nudo/nudo-08-1.png",

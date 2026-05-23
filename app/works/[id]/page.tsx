@@ -80,7 +80,7 @@ export default function ProjectPage() {
         ? project.gallery 
         : ["/projectimgs/placeholder.png", "/projectimgs/placeholder.png"];
     
-    let imagesToRender = [project.image || "/projectimgs/placeholder.png", ...defaultGallery];
+    const imagesToRender = [project.image || "/projectimgs/placeholder.png", ...defaultGallery];
 
     const totalHeightVh = (imagesToRender.length - 1) * 120 + 100;
 

@@ -51,6 +51,7 @@ export default function AboutPage() {
 
         // Slower scroll for About page
         const originalDuration = lenis.options.duration;
+        // eslint-disable-next-line react-hooks/immutability
         lenis.options.duration = 3.0; // Slower than default 1.5
 
         return () => {

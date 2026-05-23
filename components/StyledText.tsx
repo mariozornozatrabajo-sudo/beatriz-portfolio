@@ -6,7 +6,7 @@ interface StyledTextProps extends React.HTMLAttributes<HTMLElement> {
     className?: string; // Additional classes for font size, weight, etc.
     color?: string; // Default: 'text-[var(--beatriz-yellow)]'
     blendMode?: string; // Default: 'mix-blend-exclusion'
-    [key: string]: any; // Allow other props
+    [key: string]: unknown; // Allow other props
 }
 
 export function StyledText({

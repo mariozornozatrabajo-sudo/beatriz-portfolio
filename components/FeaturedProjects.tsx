@@ -146,7 +146,7 @@ export function FeaturedProjects() {
                                                 as="p"
                                                 color="text-white"
                                                 blendMode="mix-blend-difference" // Explicitly use difference for stronger negative effect
-                                                className="reveal-text font-mono text-[14px] md:text-[16px] max-w-[600px] leading-normal"
+                                                className="reveal-text font-mono text-[14px] md:text-[16px] max-w-[600px] leading-normal line-clamp-3"
                                             >
                                                 {project.description}
                                             </StyledText>

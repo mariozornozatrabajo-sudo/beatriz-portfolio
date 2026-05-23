@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { projects } from "@/data/projects";
-import { GlitchButton } from "./GlitchButton";
+
 import { GlitchText } from "./GlitchText";
 import { StyledText } from "./StyledText";
 
@@ -96,9 +96,10 @@ export function FeaturedProjects() {
                     const currentImage = galleryImages[galleryIndex % galleryImages.length];
 
                     return (
-                        <div
+                        <Link
                             key={project.id}
-                            className="featured-item sticky top-0 w-full min-h-screen flex flex-col justify-center overflow-hidden origin-top"
+                            href={`/works/${project.id}`}
+                            className="featured-item sticky top-0 w-full min-h-screen flex flex-col justify-center overflow-hidden origin-top block cursor-pointer"
                         >
                             {/* Background Image - Full Screen but treated as "Mockup" background */}
                             <div className="absolute inset-0 z-0 w-full h-full">
@@ -159,8 +160,7 @@ export function FeaturedProjects() {
                                             onMouseLeave={() => setHoveredProjectId(null)}
                                         >
                                             <StyledText
-                                                as={Link}
-                                                href={`/works/${project.id}`}
+                                                as="span"
                                                 color="text-white"
                                                 blendMode="mix-blend-difference" // Explicitly use difference for stronger negative effect
                                                 className="font-mono text-[20px] md:text-[24px] underline decoration-solid underline-offset-4 hover:text-[var(--beatriz-yellow)] transition-colors"
@@ -187,14 +187,12 @@ export function FeaturedProjects() {
                                 </div>
 
                             </div>
-                        </div>
+                        </Link>
                     );
                 })}
             </div>
 
-            <div className="w-full flex justify-center py-20 bg-[var(--background)]">
-                <GlitchButton href="/works" text="Ver todos los proyectos" />
-            </div>
+
         </section>
     );
 }

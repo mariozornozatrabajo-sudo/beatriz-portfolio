@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useNavTheme } from "@/context/NavContext";
@@ -64,21 +65,19 @@ export function PreFooter({ hideWorksCta = false, hideAboutCta = false }: { hide
                 {/* Figma Node 361:182 width 697px -> approx 6 cols */}
                 <div className="col-span-1 md:col-span-6 relative h-[593px] w-full">
                     {/* Image Container */}
-                    <div className="absolute top-0 right-0 w-[593px] h-[575px] flex items-center justify-center">
-                        <div className="relative w-full h-full rotate-180 -scale-y-100">
-                            <div className="absolute inset-0 mix-blend-difference overflow-hidden pointer-events-none">
-                                {/* Use actual image URL from Figma */}
-                                <img
-                                    src="http://localhost:3845/assets/3a4b3baeeb7ebb8d2e1027ea12271a52e876fa20.png"
-                                    alt="Illustration"
-                                    className="absolute h-[103.22%] left-0 max-w-none top-0 w-full object-cover"
-                                />
-                            </div>
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[60%] w-[150%] h-[150%] md:w-[180%] md:h-[180%] flex items-center justify-center z-0 pointer-events-none">
+                        <div className="relative w-full h-full opacity-100">
+                            <Image
+                                src="/footer-figures.png"
+                                alt="Illustration"
+                                fill
+                                className="object-contain drop-shadow-xl"
+                            />
                         </div>
                     </div>
 
                     {/* Third CTA Positioning */}
-                    <div className="absolute bottom-0 left-0 flex flex-col gap-[33px] items-start w-full pointer-events-none md:pointer-events-auto">
+                    <div className="absolute bottom-0 left-0 flex flex-col gap-[33px] items-start w-full pointer-events-none md:pointer-events-auto z-10">
                         <h2 className="font-['Fractul_Variable'] font-semibold text-5xl md:text-[96px] leading-[0.9] text-[#dde904] capitalize mix-blend-exclusion">
                             Si quieres hablar conmigo
                         </h2>

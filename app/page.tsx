@@ -68,13 +68,13 @@ export default function Home() {
         <div className="flex flex-col justify-center min-h-screen px-6 md:px-10 py-20 relative">
           <div className="space-y-2 md:space-y-4 max-w-full w-fit mt-20">
             {/* Title */}
-            <h1 className="hero-anim font-semibold text-6xl md:text-8xl lg:text-[120px] leading-none text-[var(--beatriz-yellow)] mix-blend-exclusion tracking-tighter flex flex-col items-start">
+            <h1 className="hero-anim font-semibold text-6xl md:text-8xl lg:text-[120px] leading-none text-[var(--beatriz-yellow)] mix-blend-difference tracking-tighter flex flex-col items-start transform-gpu">
               <GlitchText text="Beatriz" triggerOnLoad />
               <GlitchText text="Montes" triggerOnLoad />
             </h1>
 
             {/* Description */}
-            <p className="hero-anim font-mono text-lg md:text-[20px] w-[40%] leading-[1.3] mix-blend-exclusion text-white break-words">
+            <p className="hero-anim font-mono text-lg md:text-[20px] w-[80%] md:w-[40%] leading-[1.3] mix-blend-difference text-white break-words transform-gpu">
               A Creative Partner for companies and brands that decide to move forward.
             </p>
           </div>
@@ -89,10 +89,10 @@ export default function Home() {
         <Footer />
 
         {/* Floating Action Button */}
-        <div className="footer-anim absolute bottom-16 right-6 md:bottom-20 md:right-10 z-30">
+        <div className="footer-anim absolute bottom-28 right-6 md:bottom-20 md:right-10 z-30 hidden md:flex">
           <button
             onClick={handleScrollToWorks}
-            className="hero-btn group bg-[var(--beatriz-blue)] text-white w-12 h-12 md:w-16 md:h-16 flex items-center justify-center transition-colors cursor-pointer hover:bg-transparent hover:backdrop-invert hover:text-white border-none outline-none ring-0"
+            className="hero-btn group bg-[var(--beatriz-blue)] text-white w-12 h-12 md:w-16 md:h-16 flex items-center justify-center transition-colors cursor-pointer hover:bg-transparent hover:backdrop-invert hover:text-white border-none outline-none ring-0 rounded-none"
           >
             <ArrowDown className="hero-arrow w-5 h-5 md:w-6 md:h-6" />
           </button>

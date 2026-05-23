@@ -118,7 +118,7 @@ export function FeaturedProjects() {
                             <div className="relative w-full h-full px-6 md:px-10 grid grid-cols-12 gap-5 pointer-events-none">
                                 <div className="col-span-12 md:col-span-8 lg:col-span-6 flex flex-col justify-center min-h-screen pointer-events-auto">
                                     {/* Fixed Height Container to match Figma's 613px spacing and positioning */}
-                                    <div className="flex flex-col justify-between h-[600px] md:h-[613px]">
+                                    <div className="flex flex-col justify-between h-[500px] md:h-[613px]">
                                         <div className="flex flex-col gap-6 items-start">
 
                                             {/* Category & Title */}
@@ -136,7 +136,7 @@ export function FeaturedProjects() {
                                                 <StyledText
                                                     as="h2"
                                                     blendMode="mix-blend-difference" // Explicitly use difference for stronger negative effect
-                                                    className="reveal-text font-heading font-semibold text-[60px] md:text-[96px] leading-[0.9] md:leading-[90px] capitalize"
+                                                    className="reveal-text font-heading font-semibold text-[48px] md:text-[96px] leading-[0.9] md:leading-[90px] capitalize"
                                                 >
                                                     {project.title}
                                                 </StyledText>

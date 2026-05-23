@@ -39,7 +39,7 @@ export function PreFooter({ hideWorksCta = false, hideAboutCta = false }: { hide
             <div className="w-full max-w-[1416px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-y-16 md:gap-x-[21px] items-end">
 
                 {/* Column 1: CTAs (Spans 5 cols typically or based on Figma width 698px/1416px ~ 6 cols) */}
-                <div className="col-span-1 md:col-span-6 flex flex-col gap-[96px] items-start">
+                <div className="col-span-1 md:col-span-6 flex flex-col gap-12 md:gap-[96px] items-start">
                     {/* Block 1 */}
                     {!hideWorksCta && (
                         <div className="flex flex-col gap-8 items-start w-full">

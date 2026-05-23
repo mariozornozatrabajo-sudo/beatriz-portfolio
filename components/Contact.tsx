@@ -75,8 +75,8 @@ export function Contact() {
                     {/* Left Column: Text & Links */}
                     <div className="flex flex-col justify-between space-y-12">
                         <div>
-                            <p className="text-xl md:text-2xl font-mono leading-relaxed max-w-md mb-8">
-                                Me cago en vuestra puta vida, contratadme :)
+                            <p className="text-xl md:text-2xl font-mono leading-relaxed max-w-md mb-8 capitalize">
+                                Beatriz Montes Gijón
                             </p>
 
                             <div className="flex flex-wrap gap-6 text-[var(--beatriz-yellow)] font-mono text-sm md:text-base">
@@ -106,7 +106,7 @@ export function Contact() {
                 </div>
 
                 {/* Bottom Categories */}
-                <div className="grid grid-cols-2 md:flex md:justify-between gap-4 text-xs md:text-sm pt-20 border-t border-white/10 mt-10 text-white font-mono">
+                <div className="grid grid-cols-2 md:flex md:justify-between gap-6 md:gap-4 text-xs md:text-sm pt-10 md:pt-20 border-t border-white/10 mt-10 text-white font-mono">
                     <span
                         onMouseEnter={() => handleMouseEnter("Editorial")}
                         onMouseLeave={handleMouseLeave}

@@ -18,7 +18,7 @@ export function StyledText({
     ...props
 }: StyledTextProps) {
     return (
-        <Tag className={`${color} ${blendMode} ${className}`} {...props}>
+        <Tag className={`${color} ${blendMode} transform-gpu ${className}`} {...props}>
             {children}
         </Tag>
     );

@@ -9,6 +9,13 @@ import { projects } from "@/data/projects";
 import { GlitchText } from "./GlitchText";
 import { StyledText } from "./StyledText";
 
+const getTitleStyle = (text: string) => {
+    const maxWordLength = Math.max(...(text || "").split(/[\s-]+/).map(w => w.length));
+    if (maxWordLength >= 12) return { fontSize: 'clamp(20px, 6.5vw, 96px)' };
+    if (maxWordLength >= 9) return { fontSize: 'clamp(26px, 7.5vw, 96px)' };
+    return { fontSize: 'clamp(32px, 8.5vw, 96px)' };
+};
+
 const MediaRender = ({ src, alt, className, priority }: { src: string, alt: string, className?: string, priority?: boolean }) => {
     if (src.endsWith('.mp4')) {
         return (
@@ -136,7 +143,8 @@ export function FeaturedProjects() {
                                                 <StyledText
                                                     as="h2"
                                                     blendMode="mix-blend-difference" // Explicitly use difference for stronger negative effect
-                                                    className="reveal-text font-heading font-semibold text-[48px] md:text-[96px] leading-[0.9] md:leading-[90px] capitalize"
+                                                    className="reveal-text font-heading font-semibold leading-[0.9] md:leading-[90px] capitalize whitespace-normal break-words"
+                                                    style={getTitleStyle(project.title)}
                                                 >
                                                     {project.title}
                                                 </StyledText>

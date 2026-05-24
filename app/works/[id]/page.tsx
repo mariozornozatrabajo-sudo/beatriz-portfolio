@@ -17,6 +17,21 @@ gsap.registerPlugin(ScrollTrigger);
 import { ProjectBackground } from "@/components/ProjectBackground";
 import { StyledText } from "@/components/StyledText";
 
+// Helper function to dynamically calculate text sizes based on the longest word
+const getTitleStyle = (text: string) => {
+    const maxWordLength = Math.max(...(text || "").split(/[\s-]+/).map(w => w.length));
+    if (maxWordLength >= 12) return { fontSize: 'clamp(20px, 6.5vw, 64px)' };
+    if (maxWordLength >= 9) return { fontSize: 'clamp(24px, 7.5vw, 64px)' };
+    return { fontSize: 'clamp(28px, 8.5vw, 64px)' };
+};
+
+const getRoleStyle = (text: string) => {
+    const maxWordLength = Math.max(...(text || "").split(/[\s-]+/).map(w => w.length));
+    if (maxWordLength >= 12) return { fontSize: 'clamp(18px, 6vw, 80px)' };
+    if (maxWordLength >= 9) return { fontSize: 'clamp(22px, 7vw, 80px)' };
+    return { fontSize: 'clamp(26px, 8vw, 80px)' };
+};
+
 export default function ProjectPage() {
     const params = useParams();
     const router = useRouter();
@@ -116,8 +131,8 @@ export default function ProjectPage() {
                                     <StyledText as="p" className="project-anim font-mono text-[14px] md:text-[20px]" blendMode="mix-blend-normal">
                                         <GlitchText text={project.category || ""} triggerOnLoad={true} disableHover={true} />
                                     </StyledText>
-                                    <StyledText as="h1" className="project-anim font-heading font-semibold text-[40px] sm:text-[50px] md:text-[64px] leading-[1.1] capitalize" blendMode="mix-blend-normal">
-                                        <GlitchText text={project.title || ""} triggerOnLoad={true} delay={200} disableHover={true} />
+                                    <StyledText as="h1" className="project-anim font-heading font-semibold leading-[1.1] capitalize whitespace-normal" style={getTitleStyle(project.title || "")} blendMode="mix-blend-normal">
+                                        <GlitchText className="whitespace-normal break-words max-w-full" text={project.title || ""} triggerOnLoad={true} delay={200} disableHover={true} />
                                     </StyledText>
                                 </div>
                             </div>
@@ -140,12 +155,12 @@ export default function ProjectPage() {
                                         Rol
                                     </StyledText>
                                     {project.roles ? project.roles.map((role, i) => (
-                                        <StyledText key={i} as="span" className="project-anim font-heading font-semibold text-[40px] md:text-[80px] leading-[0.9] capitalize" blendMode="mix-blend-normal">
-                                            <GlitchText text={role} triggerOnLoad={true} delay={400 + (i * 100)} disableHover={true} />
+                                        <StyledText key={i} as="span" className="project-anim font-heading font-semibold leading-[0.9] capitalize whitespace-normal" style={getRoleStyle(role)} blendMode="mix-blend-normal">
+                                            <GlitchText className="whitespace-normal break-words max-w-full" text={role} triggerOnLoad={true} delay={400 + (i * 100)} disableHover={true} />
                                         </StyledText>
                                     )) : (
-                                        <StyledText as="span" className="project-anim font-heading font-semibold text-[40px] md:text-[80px] leading-[0.9] capitalize" blendMode="mix-blend-normal">
-                                            <GlitchText text="Designer" triggerOnLoad={true} delay={400} disableHover={true} />
+                                        <StyledText as="span" className="project-anim font-heading font-semibold leading-[0.9] capitalize whitespace-normal" style={getRoleStyle("Designer")} blendMode="mix-blend-normal">
+                                            <GlitchText className="whitespace-normal break-words max-w-full" text="Designer" triggerOnLoad={true} delay={400} disableHover={true} />
                                         </StyledText>
                                     )}
                                 </div>
@@ -213,7 +228,7 @@ export default function ProjectPage() {
                 {/* Footer Navigation (Inside Tech Sheet or just below) */}
                 <div className="w-full flex justify-center mt-32 relative z-20">
                     <div className="flex flex-col items-center justify-center gap-8">
-                        <Link href={`/works/${(projectId || 0) + 1}`} className="scale-125">
+                        <Link href={`/works/${(projectId || 0) + 1}`} className="md:scale-125">
                             <GlitchButton text="Siguiente Proyecto" />
                         </Link>
                         <Link href="/works" className="font-mono text-[var(--beatriz-yellow)] hover:text-white transition-colors underline decoration-solid underline-offset-4">

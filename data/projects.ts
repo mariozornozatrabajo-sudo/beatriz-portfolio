@@ -11,6 +11,7 @@ export interface Project {
     gallery?: string[]; // Array of image URLs for the hover loop
     roles?: string[]; // New field for roles
     technicalDetails?: { label: string; value: string }[]; // New field for technical sheet
+    projectPageImage?: string; // Optional image to show as first background in project page
 }
 
 export const projects: Project[] = [
@@ -182,7 +183,8 @@ export const projects: Project[] = [
         id: 8,
         title: "Nudo",
         category: "illustrations",
-        image: "/img-proyectos/nudo/nudo-017-1.png",
+        image: "/img-proyectos/nudo/nudo-editorial.png",
+        projectPageImage: "/img-proyectos/nudo/nudo-017-1.png",
         aspect: "aspect-[4/3]",
         description: "Creación de Nudo, un libro de ilustración que explora las pesadillas desde una mirada adulta. Cada pesadilla se personifica como un personaje abstracto y sintético, representando emociones como la ansiedad, las inseguridades o el duelo. El proyecto convierte estos miedos en arquetipos visuales reconocibles, desarrollados en Adobe Fresco y maquetados posteriormente en InDesign.",
         gallery: [

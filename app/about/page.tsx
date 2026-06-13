@@ -156,7 +156,7 @@ export default function AboutPage() {
                             </h3>
                             <p className="text-lg md:text-2xl leading-relaxed">
                                 <GlitchText
-                                    text="Soy una diseñadora gráfica apasionada por la intersección entre el arte y la tecnología. Mi enfoque se centra en crear experiencias visuales que no solo comuniquen un mensaje, sino que también provoquen una emoción."
+                                    text="Soy estudiante de tercer año de Diseño Gráfico en la Escuela Superior de Diseño de Madrid. Me interesa la relación entre el arte, la tecnología y la comunicación visual, entendiendo el diseño como una herramienta capaz de construir experiencias, transmitir ideas y generar emoción."
                                     triggerOnInView
                                     duration={500}
                                 />
@@ -166,14 +166,14 @@ export default function AboutPage() {
                         <div className="min-h-[50vh] flex flex-col justify-center space-y-8">
                             <p className="text-lg md:text-2xl leading-relaxed">
                                 <GlitchText
-                                    text="Con experiencia en branding, diseño web y dirección de arte, busco siempre empujar los límites de lo convencional. Me inspira lo extraño, lo único y lo que rompe las reglas establecidas."
+                                    text="La mayoría de mis trabajos parten del rediseño de proyectos reales, lo que me permite abordar cada propuesta desde una perspectiva cercana al ámbito profesional. Aunque muchos de estos proyectos no lleguen a implementarse, están desarrollados sobre bases fundamentadas, con investigación, análisis previo y una intención clara de responder a necesidades reales de comunicación."
                                     triggerOnInView
                                     duration={500}
                                 />
                             </p>
                             <p className="text-lg md:text-2xl leading-relaxed">
                                 <GlitchText
-                                    text="Creo firmemente que el diseño tiene el poder de transformar la percepción y moldear realidades. Cada proyecto es una oportunidad para explorar nuevas narrativas visuales y conectar con la audiencia en un nivel más profundo."
+                                    text="A lo largo de mi formación he trabajado en proyectos de identidad visual, diseño editorial, diseño web, packaging, dirección de arte y producción audiovisual. Además, también he participado en proyectos reales en colaboración, como los visuales audiovisuales de Sinestesia para la Fashion Week de Madrid, que se llevaron a cabo en riguroso directo."
                                     triggerOnInView
                                     duration={500}
                                 />
@@ -183,21 +183,7 @@ export default function AboutPage() {
                         <div className="min-h-[50vh] flex flex-col justify-center space-y-8">
                             <p className="text-lg md:text-2xl leading-relaxed">
                                 <GlitchText
-                                    text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-                                    triggerOnInView
-                                    duration={500}
-                                />
-                            </p>
-                            <p className="text-lg md:text-2xl leading-relaxed">
-                                <GlitchText
-                                    text="Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                                    triggerOnInView
-                                    duration={500}
-                                />
-                            </p>
-                            <p className="text-lg md:text-2xl leading-relaxed">
-                                <GlitchText
-                                    text="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
+                                    text="Me atraen especialmente las propuestas que se alejan de lo convencional, lo extraño, lo experimental y aquello que permite explorar nuevas formas de narrar. Creo que el diseño tiene la capacidad de transformar la manera en la que percibimos una idea, una marca o una historia. Para mí, cada proyecto es una oportunidad para investigar, experimentar y conectar con el público desde una mirada visual propia."
                                     triggerOnInView
                                     duration={500}
                                 />

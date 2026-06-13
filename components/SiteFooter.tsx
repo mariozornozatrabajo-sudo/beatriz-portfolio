@@ -22,7 +22,7 @@ export function SiteFooter() {
                 {/* Right: Contact */}
                 <div className="flex flex-col md:items-end text-left md:text-right">
                     <p>+34 625 22 66 11</p>
-                    <a href="mailto:hola@beatrizmontes.es" className="hover:underline">hola@beatrizmontes.es</a>
+                    <a href="mailto:beatrizmontesgijon@gmail.com" className="hover:underline">beatrizmontesgijon@gmail.com</a>
                 </div>
             </div>
         </footer>

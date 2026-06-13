@@ -5,7 +5,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { GlitchButton } from "./GlitchButton";
 import { GlitchText } from "./GlitchText";
 
@@ -22,16 +23,24 @@ interface WorksProps {
 export function Works({ showTitle = false, showFilters = false, showViewAllButton = true }: WorksProps) {
     const container = useRef<HTMLElement>(null);
     const rightColTrigger = useRef<HTMLDivElement>(null);
+    const searchParams = useSearchParams();
+    const queryCategory = searchParams.get("category");
     const [hoveredProject, setHoveredProject] = useState<number | null>(null);
-    const [filter, setFilter] = useState<Category | 'all'>('all');
+    const [filter, setFilter] = useState<Category | 'all'>((queryCategory as Category | 'all') || 'all');
+
+    useEffect(() => {
+        if (queryCategory) {
+            setFilter(queryCategory as Category | 'all');
+        }
+    }, [queryCategory]);
 
     const filteredProjects = filter === 'all'
         ? projects
         : projects.filter(p => p.category.toLowerCase() === filter.toLowerCase());
 
     const categories: (Category | 'all')[] = ['all', 'editorial', 'motion', 'illustrations', 'identidad', 'visual identity'];
-    // Filter out categories that don't have projects if needed, or just keep static list
-    const activeCategories = ['all', ...Array.from(new Set(projects.map(p => p.category)))];
+    // Usamos una lista estática que asegure que 'illustrations' siempre esté presente
+    const activeCategories = ['all', 'editorial', 'motion', 'illustrations', 'visual identity'];
 
     useGSAP(
         () => {

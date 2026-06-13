@@ -52,12 +52,13 @@ export default function ContactPage() {
                 </div>
 
                 {/* Form Section */}
-                <form className="contact-anim flex flex-col gap-12 w-full mt-12 md:mt-24">
+                <form action="https://formsubmit.co/beatrizmontesgijon@gmail.com" method="POST" className="contact-anim flex flex-col gap-12 w-full mt-12 md:mt-24">
                     
                     {/* First Row: 4 Inputs */}
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-4 lg:gap-12 w-full">
                         <div className="w-full relative group">
                             <input 
+                                name="name"
                                 type="text"
                                 className="w-full bg-transparent border-b border-black py-4 px-2 text-[16px] text-black focus:outline-none placeholder-[#666] transition-colors focus:border-[var(--beatriz-blue)]"
                                 placeholder="Nombre"
@@ -66,6 +67,7 @@ export default function ContactPage() {
                         </div>
                         <div className="w-full relative group">
                             <input 
+                                name="email"
                                 type="email"
                                 className="w-full bg-transparent border-b border-black py-4 px-2 text-[16px] text-black focus:outline-none placeholder-[#666] transition-colors focus:border-[var(--beatriz-blue)]"
                                 placeholder="Correo electrónico"
@@ -74,6 +76,7 @@ export default function ContactPage() {
                         </div>
                         <div className="w-full relative group">
                             <input 
+                                name="phone"
                                 type="tel"
                                 className="w-full bg-transparent border-b border-black py-4 px-2 text-[16px] text-black focus:outline-none placeholder-[#666] transition-colors focus:border-[var(--beatriz-blue)]"
                                 placeholder="Teléfono móvil"
@@ -81,6 +84,7 @@ export default function ContactPage() {
                         </div>
                         <div className="w-full relative group">
                             <input 
+                                name="website"
                                 type="url"
                                 className="w-full bg-transparent border-b border-black py-4 px-2 text-[16px] text-black focus:outline-none placeholder-[#666] transition-colors focus:border-[var(--beatriz-blue)]"
                                 placeholder="Tu web"
@@ -92,6 +96,7 @@ export default function ContactPage() {
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 w-full">
                         {/* Dropdown column */}
                         <div className="w-full relative col-span-1 border-b border-black self-start">
+                            <input type="hidden" name="service" value={selectedService} />
                             <button 
                                 type="button"
                                 onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -131,9 +136,11 @@ export default function ContactPage() {
                         {/* Textarea Column */}
                         <div className="w-full md:col-span-3 border border-black p-4 md:p-6 min-h-[186px] flex flex-col justify-end group focus-within:border-[var(--beatriz-blue)]">
                             <textarea 
+                                name="message"
                                 className="w-full h-full bg-transparent resize-none text-[16px] text-black focus:outline-none placeholder-black/60"
                                 placeholder="Explícame cómo es tu proyecto"
                                 rows={6}
+                                required
                             ></textarea>
                         </div>
                     </div>

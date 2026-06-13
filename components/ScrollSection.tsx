@@ -59,10 +59,9 @@ export const ScrollSection = () => {
 
     // Data for columns
     const data = [
-        { title: "Libros", items: ["Libros", "Libros", "Libros", "Libros"] },
-        { title: "Vídeos", items: ["Vídeos", "Vídeos", "Vídeos", "Vídeos"] },
-        { title: "Dibujitos", items: ["Doodle", "Doodle", "Doodle", "Doodle"] },
-        { title: "Marcas", items: ["Marcas", "Marcas", "Marcas", "Marcas"] },
+        { title: "Editorial", items: ["Editorial", "Editorial", "Editorial", "Editorial"] },
+        { title: "Motion", items: ["Motion", "Motion", "Motion", "Motion"] },
+        { title: "Branding", items: ["Branding", "Branding", "Branding", "Branding"] },
     ];
 
     return (
@@ -77,7 +76,7 @@ export const ScrollSection = () => {
                         {col.items.map((item, j) => (
                             <span
                                 key={j}
-                                className={`scroll-word font-heading text-[10vw] md:text-[6.5vw] leading-[0.85] tracking-tighter text-[#DDE904] mix-blend-difference ${i === 0 ? "text-left" : i === data.length - 1 ? "text-right" : "text-center"
+                                className={`scroll-word whitespace-nowrap font-heading text-[10vw] md:text-[6.5vw] leading-[0.85] tracking-tighter text-[#DDE904] mix-blend-difference ${i === 0 ? "text-left" : i === data.length - 1 ? "text-right" : "text-center"
                                     }`}
                             >
                                 {item}

@@ -85,7 +85,7 @@ export default function ContactPage() {
                         <div className="w-full relative group">
                             <input 
                                 name="website"
-                                type="url"
+                                type="text"
                                 className="w-full bg-transparent border-b border-black py-4 px-2 text-[16px] text-black focus:outline-none placeholder-[#666] transition-colors focus:border-[var(--beatriz-blue)]"
                                 placeholder="Tu web"
                             />

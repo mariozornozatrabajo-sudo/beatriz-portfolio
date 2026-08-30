@@ -12,7 +12,8 @@ import { GlitchText } from "./GlitchText";
 
 gsap.registerPlugin(ScrollTrigger);
 
-import { projects, Category } from "@/data/projects";
+import { projects as staticProjects, Category, Project } from "@/data/projects";
+import { getProjects } from "@/sanity/lib/getProjects";
 
 interface WorksProps {
     showTitle?: boolean;
@@ -27,6 +28,16 @@ export function Works({ showTitle = false, showFilters = false, showViewAllButto
     const queryCategory = searchParams.get("category");
     const [hoveredProject, setHoveredProject] = useState<number | null>(null);
     const [filter, setFilter] = useState<Category | 'all'>((queryCategory as Category | 'all') || 'all');
+    const [projects, setProjects] = useState<Project[]>(staticProjects);
+
+    useEffect(() => {
+        getProjects().then(fetched => {
+            if (fetched && fetched.length > 0) {
+                setProjects(fetched);
+                setTimeout(() => ScrollTrigger.refresh(), 100);
+            }
+        });
+    }, []);
 
     useEffect(() => {
         if (queryCategory) {

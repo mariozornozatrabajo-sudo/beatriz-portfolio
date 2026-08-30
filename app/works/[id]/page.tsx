@@ -1,6 +1,7 @@
 "use client";
 
-import { projects } from "@/data/projects";
+import { projects as staticProjects, Project } from "@/data/projects";
+import { getProjects } from "@/sanity/lib/getProjects";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -8,7 +9,7 @@ import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { GlitchButton } from "@/components/GlitchButton";
 import { GlitchText } from "@/components/GlitchText";
 
@@ -36,16 +37,31 @@ export default function ProjectPage() {
     const params = useParams();
     const router = useRouter();
     const container = useRef<HTMLElement>(null);
+    const [projects, setProjects] = useState<Project[]>(staticProjects);
+
+    useEffect(() => {
+        getProjects().then(fetched => {
+            if (fetched && fetched.length > 0) {
+                setProjects(fetched);
+                setTimeout(() => ScrollTrigger.refresh(), 100);
+            }
+        });
+    }, []);
 
     // Find project
     const projectId = params.id ? parseInt(params.id as string) : null;
-    const project = projects.find((p) => p.id === projectId);
+    const project = projects.find((p) => p.id === projectId || p.id === params.id);
 
     // Redirect if not found
     useEffect(() => {
-        if (!project && projectId !== null) {
-            router.push("/works");
-        }
+        // Only redirect if projects are loaded and project is still not found
+        // Wait briefly for sanity data before deciding to kick them out
+        const timer = setTimeout(() => {
+            if (!project && projectId !== null) {
+                router.push("/works");
+            }
+        }, 1000);
+        return () => clearTimeout(timer);
     }, [project, projectId, router]);
 
     useGSAP(
@@ -85,7 +101,7 @@ export default function ProjectPage() {
                 ease: "none",
             });
         },
-        { scope: container }
+        { scope: container, dependencies: [project] }
     );
 
     if (!project) return null;

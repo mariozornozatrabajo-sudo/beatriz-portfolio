@@ -29,11 +29,16 @@ export function GlitchText({
     disableHover = false
 }: GlitchTextProps) {
     // Helper to generate a random string of same length
+    // Uses a deterministic pseudo-random function so SSR and Client hydration match exactly
     const scramble = (str: string) => {
         const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
-        return str.split("").map(char => {
-            if (char === " " || char === "\n") return char; // Preserve spaces/newlines
-            return chars[Math.floor(Math.random() * chars.length)];
+        let seed = str.length;
+        return str.split("").map((char, i) => {
+            if (char === " " || char === "\n") return char;
+            seed += char.charCodeAt(0) + i;
+            const x = Math.sin(seed) * 10000;
+            const pseudoRandom = x - Math.floor(x);
+            return chars[Math.floor(pseudoRandom * chars.length)];
         }).join("");
     };
 

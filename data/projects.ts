@@ -202,5 +202,45 @@ export const projects: Project[] = [
             { label: "Paginación", value: "4,25cm x 14cm" },
             { label: "Tratamiento de las ilustraciones", value: "Imperfectas y dinámicas" }
         ]
+    },
+    {
+        id: 9,
+        title: "Rakuten TV",
+        category: "visual identity",
+        image: "/img-proyectos/rakuten-tv/rakuten-tv.mp4",
+        aspect: "aspect-[3/5]",
+        description: "Rediseño de la identidad visual de Rakuten TV, planteando un sistema flexible. La identidad se construye a partir de la metáfora de los estados de la materia, permitiendo adaptar la imagen sin perder coherencia ni reconocimiento de marca.",
+        gallery: [
+            "/img-proyectos/rakuten-tv/tiras-mockup.png",
+            "/img-proyectos/rakuten-tv/image2.png",
+            "/img-proyectos/rakuten-tv/rectangle128.png",
+            "/img-proyectos/rakuten-tv/rectangle129.png",
+            "/img-proyectos/rakuten-tv/rectangle130.png"
+        ],
+        roles: ["Diseñadora", "Identidad Visual"],
+        featured: false,
+        technicalDetails: [
+            { label: "Proyecto", value: "Identidad Visual Rakuten TV" }
+        ]
+    },
+    {
+        id: 10,
+        title: "Bandcamp",
+        category: "visual identity",
+        image: "/img-proyectos/bandcamp/bandcamp.mp4",
+        aspect: "aspect-[3/5]",
+        description: "Rediseño de la identidad visual de Bandcamp, planteando un sistema flexible que responde a la diversidad de propuestas artísticas. La identidad se construye a partir de una estética única, permitiendo adaptar la imagen según las necesidades sin perder coherencia ni reconocimiento de marca.",
+        gallery: [
+            "/img-proyectos/bandcamp/rectangle-100.png",
+            "/img-proyectos/bandcamp/gorra-2.png",
+            "/img-proyectos/bandcamp/cami-1.png",
+            "/img-proyectos/bandcamp/rectangle-84.png",
+            "/img-proyectos/bandcamp/rectangle-83.png"
+        ],
+        roles: ["Diseñadora", "Identidad Visual"],
+        featured: false,
+        technicalDetails: [
+            { label: "Proyecto", value: "Identidad Visual Bandcamp" }
+        ]
     }
 ];

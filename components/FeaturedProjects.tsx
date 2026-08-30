@@ -4,7 +4,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
-import { projects } from "@/data/projects";
+import { projects as staticProjects, Project } from "@/data/projects";
+import { getProjects } from "@/sanity/lib/getProjects";
 
 import { GlitchText } from "./GlitchText";
 import { StyledText } from "./StyledText";
@@ -48,6 +49,17 @@ export function FeaturedProjects() {
     const container = useRef<HTMLElement>(null);
     const [hoveredProjectId, setHoveredProjectId] = useState<number | null>(null);
     const [galleryIndex, setGalleryIndex] = useState(0);
+    const [projects, setProjects] = useState<Project[]>(staticProjects);
+
+    useEffect(() => {
+        getProjects().then(fetched => {
+            if (fetched && fetched.length > 0) {
+                setProjects(fetched);
+                // Need to refresh ScrollTrigger after DOM updates from state change
+                setTimeout(() => ScrollTrigger.refresh(), 100);
+            }
+        });
+    }, []);
 
     // Gallery Slideshow Interval
     useEffect(() => {
@@ -81,7 +93,7 @@ export function FeaturedProjects() {
                 });
             });
         },
-        { scope: container }
+        { scope: container, dependencies: [projects] }
     );
 
     // Filter only top 4 projects

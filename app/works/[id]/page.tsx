@@ -49,8 +49,9 @@ export default function ProjectPage() {
     }, []);
 
     // Find project
-    const projectId = params.id ? parseInt(params.id as string) : null;
-    const project = projects.find((p) => p.id === projectId || p.id === params.id);
+    const idParam = Array.isArray(params.id) ? params.id[0] : (params.id as string);
+    const projectId = idParam ? parseInt(idParam) : null;
+    const project = projects.find((p) => p.id === projectId || String(p.id) === idParam);
 
     // Redirect if not found
     useEffect(() => {

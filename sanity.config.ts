@@ -5,8 +5,8 @@ import { schema } from './sanity/schemaTypes'
 
 export default defineConfig({
   basePath: '/studio',
-  projectId,
-  dataset,
+  projectId: projectId || 'dummy',
+  dataset: dataset || 'production',
   schema,
   plugins: [
     structureTool(),
